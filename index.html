@@ -12,18 +12,13 @@
             --text-muted: #64748b;
             --accent-color: #0284c7; 
             --border-color: #e2e8f0;
-
-            /* Kolory podium */
-            --gold-bg: #fef08a;
-            --silver-bg: #f1f5f9;
-            --bronze-bg: #ffedd5;
         }
         body { 
             font-family: 'Segoe UI', -apple-system, sans-serif; 
             background-color: var(--bg-color); 
             color: var(--text-color); 
             margin: 0; 
-            padding: 20px; 
+            padding: 15px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -33,22 +28,22 @@
             text-transform: uppercase; 
             letter-spacing: 1px; 
             margin-bottom: 5px; 
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         .odswiezanie { 
             color: var(--text-muted); 
-            font-size: 0.9rem; 
-            margin-bottom: 30px; 
+            font-size: 0.85rem; 
+            margin-bottom: 20px; 
             font-weight: 500;
         }
         .kontener { width: 100%; max-width: 1400px; }
         .sekcja-grupy { 
             background-color: var(--card-bg); 
             border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 30px; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
         }
         .tabela-kontener { 
             width: 100%; 
@@ -57,62 +52,68 @@
         h2 { 
             color: var(--accent-color); 
             border-bottom: 2px solid var(--border-color); 
-            padding-bottom: 10px; 
+            padding-bottom: 8px; 
             margin-top: 0; 
-            font-size: 1.4rem;
+            font-size: 1.25rem;
         }
-        .tabela-wynikow { width: 100%; border-collapse: collapse; white-space: nowrap; }
+
+        /* --- ODCHUDZANIE TABELI (Mniejsza czcionka i ciasny rozstaw) --- */
+        .tabela-wynikow { 
+            width: 100%; 
+            border-collapse: collapse; 
+            white-space: nowrap; 
+            font-size: 0.85rem; /* Zmniejszona ogólna wielkość tekstu */
+        }
         .tabela-wynikow th { 
             background-color: #f1f5f9; 
             color: #334155; 
-            padding: 12px 15px; 
+            padding: 8px 10px; /* Ciasny padding */
             text-transform: uppercase; 
-            font-size: 0.8rem; 
+            font-size: 0.75rem; 
             font-weight: 700;
             border-bottom: 2px solid var(--border-color); 
             text-align: center; 
         }
         .tabela-wynikow td { 
-            padding: 12px 15px; 
+            padding: 6px 10px; /* Bardzo zwarta wysokość wiersza */
             border-bottom: 1px solid var(--border-color); 
-            font-size: 0.95rem; 
+            color: #334155;
             text-align: center; 
         }
 
-        /* Wyrównanie do lewej dla nazwisk i klubów */
+        /* Wyrównanie dla tekstu */
         .tabela-wynikow th:nth-child(2), .tabela-wynikow td:nth-child(2),
         .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { 
             text-align: left; 
         }
 
-        /* Podświetlanie wiersza po najechaniu myszką */
+        /* --- AUTOMATYCZNE ZWĘŻANIE KOLUMN LICZBOWYCH --- */
+        /* Jeśli nagłówek nie jest Nazwiskiem ani Klubem, ma być możliwie najwęższy */
+        .tabela-wynikow th:not(:nth-child(2)):not(:nth-child(3)), 
+        .tabela-wynikow td:not(:nth-child(2)):not(:nth-child(3)) {
+            width: 35px;
+            min-width: 35px;
+            max-width: 60px;
+        }
+
         .tabela-wynikow tr:hover td { background-color: #f8fafc; }
 
-        /* --- WYRÓŻNIENIE PODIUM (Miejsca 1, 2, 3) --- */
-        .tabela-wynikow tr:nth-child(1) td { 
-            font-weight: bold; 
-            background-color: var(--gold-bg); 
-            color: #854d0e;
-        }
-        .tabela-wynikow tr:nth-child(2) td { 
-            font-weight: bold; 
-            background-color: var(--silver-bg); 
-            color: #334155;
-        }
+        /* --- WYRÓŻNIENIE PODIUM (Tylko czyste pogrubienie) --- */
+        .tabela-wynikow tr:nth-child(1) td,
+        .tabela-wynikow tr:nth-child(2) td,
         .tabela-wynikow tr:nth-child(3) td { 
             font-weight: bold; 
-            background-color: var(--bronze-bg); 
-            color: #9a3412;
+            color: #0f172a; /* Lekko ciemniejszy, wyraźniejszy kolor tekstu dla podium */
         }
     </style>
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">19:59:36</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:08:39</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-1">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -262,7 +263,7 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny 40 Open - KPN40 Open</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-2">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -334,7 +335,7 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny 40 Młodzik - KPN40 Młodzik</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-3">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -356,7 +357,7 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny Open - Finał</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-4">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -575,7 +576,7 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-5">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -763,7 +764,7 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
-                    <div class="tabela-kontener">
+                    <div class="tabela-kontener" data-scroll-id="tabela-6">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
@@ -906,34 +907,46 @@
                 </div>
                 </div>
 
-    <!-- SPYTNY SKRYPT AUTOMATYCZNEJ PODMIANY W TLE -->
     <script>
         async function fetchUpdates() {
             try {
-                // Pobieramy aktualną stronę z serwera w tle
                 const response = await fetch(window.location.href, { cache: "no-store" });
                 if (!response.ok) return;
 
                 const htmlText = await response.text();
-
-                // Tworzymy wirtualny dokument, żeby wyciągnąć z niego nowe tabele
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlText, "text/html");
 
+                // --- KROK 1: ZAPAMIĘTUJEMY POZYCJE SCROLLA DLA KAŻDEJ TABELI ---
+                const scrollPositions = {};
+                document.querySelectorAll('.tabela-kontener').forEach(el => {
+                    const id = el.getAttribute('data-scroll-id');
+                    if (id) {
+                        scrollPositions[id] = el.scrollLeft;
+                    }
+                });
+
+                // KROK 2: PODMIENIAMY TREŚĆ
                 const newContent = doc.getElementById("live-content").innerHTML;
                 const newTime = doc.getElementById("time-hook").innerHTML;
 
-                // Podmieniamy samą treść bez przeładowywania okna i resetowania scrolla!
                 document.getElementById("live-content").innerHTML = newContent;
                 document.getElementById("time-hook").innerHTML = newTime;
 
-                console.log("Dane zaktualizowane płynnie.");
+                // --- KROK 3: NATYCHMIAST PRZYWRACAMY SCROLLA DLA KAŻDEJ NOWEJ TABELI ---
+                document.querySelectorAll('.tabela-kontener').forEach(el => {
+                    const id = el.getAttribute('data-scroll-id');
+                    if (id && scrollPositions[id] !== undefined) {
+                        el.scrollLeft = scrollPositions[id];
+                    }
+                });
+
+                console.log("Dane i pozycje suwaków zaktualizowane.");
             } catch (error) {
                 console.error("Błąd podczas sprawdzania aktualizacji:", error);
             }
         }
 
-        // Uruchamiaj sprawdzanie co 5 sekund
         setInterval(fetchUpdates, 5000);
     </script>
 </body>

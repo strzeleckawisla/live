@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+    <title>Wyniki Zawodów na Żywo</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #141419;
+            --text-color: #e2e8f0;
+            --accent-color: #00ff96; 
+            --border-color: #26262f;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        .odswiezanie { color: #888899; font-size: 0.9rem; margin-bottom: 30px; }
+        .kontener { width: 100%; max-width: 1400px; }
+        .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+        .tabela-kontener { width: 100%; overflow-x: auto; }
+        h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; }
+        .tabela-wynikow { width: 100%; border-collapse: collapse; white-space: nowrap; }
+        .tabela-wynikow th { background-color: #1c1c24; color: #ffffff; padding: 12px 15px; text-transform: uppercase; font-size: 0.85rem; border-bottom: 2px solid var(--border-color); text-align: center; }
+        .tabela-wynikow td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); font-size: 1rem; text-align: center; }
+        .tabela-wynikow th:nth-child(2), .tabela-wynikow td:nth-child(2),
+        .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { text-align: left; }
+        .tabela-wynikow tr:hover td { background-color: #1e1e26; color: #ffffff; }
+        .tabela-wynikow tr:first-child td { font-weight: bold; color: var(--accent-color); }
+    </style>
+</head>
+<body>
+    <h1>TABELA WYNIKÓW</h1>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: 17:10:42 (Strona odświeża się automatycznie)</div>
+    <div class="kontener">
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I seria</th>
+      <th>II seria</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>SO</th>
+      <th>SUMA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>MARCINKÓW Marcin</td>
+      <td>SZAROTKA Nowy Targ</td>
+      <td>48.4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>48.4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>ZHVANKO Tetiana</td>
+      <td>WISŁA Kraków</td>
+      <td>48.4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>48.4</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>SOBCZAK Antoni</td>
+      <td>WISŁA Kraków</td>
+      <td>46.4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>46.4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>STUCZYŃSKA Nikol</td>
+      <td>WAWEL Kraków</td>
+      <td>45.5</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>45.5</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>MRUGAŁA Daria</td>
+      <td>SZAROTKA Nowy Targ</td>
+      <td>44.8</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>44.8</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Karabin pneumatyczny 40 Open - KPN40 Open</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I</th>
+      <th>II</th>
+      <th>III</th>
+      <th>IV</th>
+      <th>Wynik</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>SOBCZAK Antoni</td>
+      <td>WISŁA Kraków</td>
+      <td>99.1</td>
+      <td>102.4</td>
+      <td>99.8</td>
+      <td>101.1</td>
+      <td>402.4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>STUCZYŃSKA Nikol</td>
+      <td>WAWEL Kraków</td>
+      <td>99.2</td>
+      <td>101.2</td>
+      <td>100.7</td>
+      <td>99.6</td>
+      <td>400.7</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>MRUGAŁA Daria</td>
+      <td>SZAROTKA Nowy Targ</td>
+      <td>98.6</td>
+      <td>99.9</td>
+      <td>98.7</td>
+      <td>98.7</td>
+      <td>395.9</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>ZHVANKO Tetiana</td>
+      <td>WISŁA Kraków</td>
+      <td>98.1</td>
+      <td>96.8</td>
+      <td>98.1</td>
+      <td>93.3</td>
+      <td>386.3</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>MARCINKÓW Marcin</td>
+      <td>SZAROTKA Nowy Targ</td>
+      <td>92.3</td>
+      <td>97.1</td>
+      <td>98.4</td>
+      <td>98.4</td>
+      <td>386.2</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Karabin pneumatyczny 40 Młodzik - KPN40 Młodzik</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I</th>
+      <th>II</th>
+      <th>III</th>
+      <th>IV</th>
+      <th>Wynik</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Pistolet pneumatyczny Open - Finał</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I seria</th>
+      <th>II seria</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>SO</th>
+      <th>SUMA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>PABJAN Julia</td>
+      <td>KS ZO LOK Kraków</td>
+      <td>48.4</td>
+      <td>49.0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>97.4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>GIZA Maja</td>
+      <td>WISŁA Kraków</td>
+      <td>48.4</td>
+      <td>47.6</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>96.0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>ZGODA Paweł</td>
+      <td>WISŁA Kraków</td>
+      <td>47.6</td>
+      <td>48.2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>95.8</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>DEMBOWSKI Adam</td>
+      <td>KS ZO LOK Kraków</td>
+      <td>46.4</td>
+      <td>49.4</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>95.8</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>ŁUŹNIAK Tomasz</td>
+      <td>WISŁA Kraków</td>
+      <td>45.8</td>
+      <td>49.2</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>95.0</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>REITER Jacek</td>
+      <td>WISŁA Kraków</td>
+      <td>45.5</td>
+      <td>47.3</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>92.8</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>KAWALEC Grzegorz</td>
+      <td>JTS Jaworzno</td>
+      <td>44.8</td>
+      <td>46.3</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>91.1</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>ŚWIERCZYŃSKA Pola</td>
+      <td>WISŁA Kraków</td>
+      <td>41.9</td>
+      <td>46.7</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>88.6</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I</th>
+      <th>II</th>
+      <th>III</th>
+      <th>IV</th>
+      <th>Wynik</th>
+      <th>10x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>MADEJ Paweł</td>
+      <td>WISŁA Kraków</td>
+      <td>93</td>
+      <td>93</td>
+      <td>92</td>
+      <td>94</td>
+      <td>372</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>REITER Jacek</td>
+      <td>WISŁA Kraków</td>
+      <td>92</td>
+      <td>93</td>
+      <td>91</td>
+      <td>93</td>
+      <td>369</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>GIZA Maja</td>
+      <td>WISŁA Kraków</td>
+      <td>93</td>
+      <td>89</td>
+      <td>90</td>
+      <td>94</td>
+      <td>366</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>DEMBOWSKI Adam</td>
+      <td>KS ZO LOK Kraków</td>
+      <td>91</td>
+      <td>91</td>
+      <td>90</td>
+      <td>87</td>
+      <td>359</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>ŁUŹNIAK Tomasz</td>
+      <td>WISŁA Kraków</td>
+      <td>91</td>
+      <td>88</td>
+      <td>89</td>
+      <td>89</td>
+      <td>357</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>KAWALEC Grzegorz</td>
+      <td>JTS Jaworzno</td>
+      <td>86</td>
+      <td>89</td>
+      <td>88</td>
+      <td>93</td>
+      <td>356</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>ZGODA Paweł</td>
+      <td>WISŁA Kraków</td>
+      <td>89</td>
+      <td>89</td>
+      <td>88</td>
+      <td>90</td>
+      <td>356</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>PABJAN Julia</td>
+      <td>KS ZO LOK Kraków</td>
+      <td>85</td>
+      <td>88</td>
+      <td>91</td>
+      <td>91</td>
+      <td>355</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>KRZYSZOWSKI Józef</td>
+      <td>PRECYZJA Kraków</td>
+      <td>89</td>
+      <td>84</td>
+      <td>86</td>
+      <td>88</td>
+      <td>347</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>LISZKA Jakub</td>
+      <td>WISŁA Kraków</td>
+      <td>89</td>
+      <td>86</td>
+      <td>85</td>
+      <td>83</td>
+      <td>343</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>ŚWIERCZYŃSKA Pola</td>
+      <td>WISŁA Kraków</td>
+      <td>86</td>
+      <td>90</td>
+      <td>78</td>
+      <td>85</td>
+      <td>339</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>BORZYLO Oleksii</td>
+      <td>WAWEL Kraków</td>
+      <td>82</td>
+      <td>84</td>
+      <td>85</td>
+      <td>87</td>
+      <td>338</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>KAWALEC-CNOTA Milena</td>
+      <td>JTS Jaworzno</td>
+      <td>82</td>
+      <td>86</td>
+      <td>87</td>
+      <td>79</td>
+      <td>334</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>MARCULA Tomasz</td>
+      <td>WAWEL Kraków</td>
+      <td>77</td>
+      <td>84</td>
+      <td>83</td>
+      <td>82</td>
+      <td>326</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>RYNDUCH Julia</td>
+      <td>MŁODY STRZELEC Bochnia</td>
+      <td>83</td>
+      <td>81</td>
+      <td>84</td>
+      <td>74</td>
+      <td>322</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                
+                <div class="sekcja-grupy">
+                    <h2>🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
+                    <div class="tabela-kontener">
+                        <table border="1" class="dataframe tabela-wynikow">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Msc</th>
+      <th>NAZWISKO Imię</th>
+      <th>Klub</th>
+      <th>I</th>
+      <th>II</th>
+      <th>III</th>
+      <th>IV</th>
+      <th>Wynik</th>
+      <th>10x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>ŚWIERCZYŃSKI Filip</td>
+      <td>WISŁA Kraków</td>
+      <td>89</td>
+      <td>84</td>
+      <td>92</td>
+      <td>92</td>
+      <td>357</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>CHERVINSKA Anastazja</td>
+      <td>MŁODY STRZELEC Bochnia</td>
+      <td>94</td>
+      <td>86</td>
+      <td>92</td>
+      <td>82</td>
+      <td>354</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>PAĆKO Bartosz</td>
+      <td>WAWEL Kraków</td>
+      <td>93</td>
+      <td>83</td>
+      <td>84</td>
+      <td>86</td>
+      <td>346</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>PRZYBYLSKI Piotr</td>
+      <td>WAWEL Kraków</td>
+      <td>90</td>
+      <td>84</td>
+      <td>85</td>
+      <td>82</td>
+      <td>341</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>MIKULEC Alicja</td>
+      <td>MŁODY STRZELEC Bochnia</td>
+      <td>83</td>
+      <td>87</td>
+      <td>85</td>
+      <td>83</td>
+      <td>338</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>TRUBICKA Sophie</td>
+      <td>WAWEL Kraków</td>
+      <td>86</td>
+      <td>84</td>
+      <td>83</td>
+      <td>81</td>
+      <td>334</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>MLECZKO Tadeusz</td>
+      <td>WAWEL Kraków</td>
+      <td>82</td>
+      <td>81</td>
+      <td>81</td>
+      <td>85</td>
+      <td>329</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>SOWA Malwina</td>
+      <td>WAWEL Kraków</td>
+      <td>83</td>
+      <td>85</td>
+      <td>79</td>
+      <td>81</td>
+      <td>328</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>KOLESNIK Polina</td>
+      <td>WAWEL Kraków</td>
+      <td>85</td>
+      <td>76</td>
+      <td>85</td>
+      <td>82</td>
+      <td>328</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>SOJKA Karol</td>
+      <td>WISŁA Kraków</td>
+      <td>73</td>
+      <td>73</td>
+      <td>71</td>
+      <td>60</td>
+      <td>277</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Nowy Rekord Turnieju</td>
+      <td>ŚWIERCZYŃSKI Filip</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>357</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+                    </div>
+                </div>
+                </div>
+</body>
+</html>

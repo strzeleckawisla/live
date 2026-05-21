@@ -82,10 +82,10 @@
             color: #334155;
             text-align: center; 
             background-color: var(--card-bg); 
-            vertical-align: middle; /* Wyrównanie w pionie przy zróżnicowanych wielkościach tekstu */
+            vertical-align: middle; 
         }
 
-        /* ZAMRAŻANIE ORAZ POWIĘKSZENIE (1.5x) KOLUMNY Z NAZWISKIEM + ZAWIJANIE TEKSTU */
+        /* ZAMRAŻANIE ORAZ POWIĘKSZENIE (1.5x) KOLUMNY Z NAZWISKIEM */
         .tabela-wynikow .col-NAZWISKO_Imię {
             position: -webkit-sticky;
             position: sticky;
@@ -95,31 +95,30 @@
             background-color: var(--card-bg);
             box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); 
 
-            /* Konfiguracja powiększenia i bezpiecznego zawijania na telefonach */
             font-size: 1.2rem !important; 
-            white-space: normal !important; /* Włączenie inteligentnego zawijania linii */
-            width: 15ch !important;         /* Maksymalna szerokość dopasowana do najdłuższego członu */
+            white-space: normal !important; 
+            width: 15ch !important;         
             min-width: 13ch !important;
             max-width: 16ch !important;
-            line-height: 1.1;               /* Ciasna wysokość linii przy złamaniu tekstu */
+            line-height: 1.1;               
         }
         th.col-NAZWISKO_Imię {
             background-color: var(--th-bg) !important;
             z-index: 3;
-            white-space: nowrap !important; /* Nagłówek trzymamy w jednej linii */
+            white-space: nowrap !important; 
         }
 
-        /* Wyrównanie dla Klubu i zablokowanie łamania linii */
+        /* Wyrównanie dla Klubu */
         .tabela-wynikow .col-Klub { 
             text-align: left !important; 
             white-space: nowrap;
         }
 
-        /* RÓWNE I ESTETYCZNE KOLUMNY DLA SERII I ORAZ II */
+        /* PUNKT 1: MAKSYMALNIE ZWĘŻONE KOLUMNY DLA SERII I ORAZ II (ZACHOWUJĄCE TYTUŁ) */
         .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria {
-            width: 8ch !important;
-            min-width: 8ch !important;
-            max-width: 8ch !important;
+            width: auto !important;
+            padding-left: 4px !important;
+            padding-right: 4px !important;
             white-space: nowrap;
         }
 
@@ -141,7 +140,7 @@
              width: 7ch !important;
              min-width: 7ch !important;
              max-width: 8ch !important;
-             font-size: 1.2rem !important; /* Większa czcionka 1.5x */
+             font-size: 1.2rem !important; 
              white-space: nowrap;
         }
 
@@ -172,7 +171,7 @@
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:57:04</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">21:00:48</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
@@ -236,7 +235,15 @@
                 </div>
 
     <script>
+        // PUNKT 2: INTELIGENTNY SYSTEM ODŚWIEŻANIA (LOKALNIE VS SERWER GITHUB)
         async function fetchUpdates() {
+            // Jeśli plik odpala się bez serwera (file:///), robimy pełny bezpieczny przeładunek strony
+            if (window.location.protocol === 'file:') {
+                window.location.reload();
+                return;
+            }
+
+            // Jeśli plik działa na serwerze GitHub, aktualizujemy go cicho w tle bez mrugania ekranem
             try {
                 const response = await fetch(window.location.href, { cache: "no-store" });
                 if (!response.ok) return;
@@ -272,6 +279,7 @@
             }
         }
 
+        // Sprawdzaj zmiany co 5 sekund
         setInterval(fetchUpdates, 5000);
     </script>
 </body>

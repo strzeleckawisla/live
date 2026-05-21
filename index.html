@@ -63,7 +63,6 @@
             width: 100%; 
             border-collapse: separate; 
             border-spacing: 0;
-            white-space: nowrap; 
             font-size: 0.85rem; 
         }
         .tabela-wynikow th { 
@@ -75,6 +74,7 @@
             font-weight: 700;
             border-bottom: 2px solid var(--border-color); 
             text-align: center; 
+            white-space: nowrap;
         }
         .tabela-wynikow td { 
             padding: 6px 10px; 
@@ -82,9 +82,10 @@
             color: #334155;
             text-align: center; 
             background-color: var(--card-bg); 
+            vertical-align: middle; /* Wyrównanie w pionie przy zróżnicowanych wielkościach tekstu */
         }
 
-        /* ZAMRAŻANIE KOLUMNY Z NAZWISKIEM */
+        /* ZAMRAŻANIE ORAZ POWIĘKSZENIE (1.5x) KOLUMNY Z NAZWISKIEM + ZAWIJANIE TEKSTU */
         .tabela-wynikow .col-NAZWISKO_Imię {
             position: -webkit-sticky;
             position: sticky;
@@ -93,22 +94,33 @@
             text-align: left !important;
             background-color: var(--card-bg);
             box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); 
+
+            /* Konfiguracja powiększenia i bezpiecznego zawijania na telefonach */
+            font-size: 1.2rem !important; 
+            white-space: normal !important; /* Włączenie inteligentnego zawijania linii */
+            width: 15ch !important;         /* Maksymalna szerokość dopasowana do najdłuższego członu */
+            min-width: 13ch !important;
+            max-width: 16ch !important;
+            line-height: 1.1;               /* Ciasna wysokość linii przy złamaniu tekstu */
         }
         th.col-NAZWISKO_Imię {
             background-color: var(--th-bg) !important;
             z-index: 3;
+            white-space: nowrap !important; /* Nagłówek trzymamy w jednej linii */
         }
 
-        /* Wyrównanie dla Klubu */
+        /* Wyrównanie dla Klubu i zablokowanie łamania linii */
         .tabela-wynikow .col-Klub { 
             text-align: left !important; 
+            white-space: nowrap;
         }
 
-        /* PUNKT 3: RÓWNE I ESTETYCZNE KOLUMNY DLA SERII I ORAZ II */
+        /* RÓWNE I ESTETYCZNE KOLUMNY DLA SERII I ORAZ II */
         .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria {
             width: 8ch !important;
             min-width: 8ch !important;
             max-width: 8ch !important;
+            white-space: nowrap;
         }
 
         /* ULTRA-WĄSKIE POJEDYNCZE STRZAŁY FINAŁOWE (11-24) ORAZ SO */
@@ -121,13 +133,24 @@
             min-width: 4ch !important;
             max-width: 4ch !important;
             padding: 6px 2px !important;
+            white-space: nowrap;
         }
 
-        /* PUNKT 2: PRECYZYJNE USTALENIE SZEROKOŚCI DLA SUMA, WYNIK, 10x (BEZ ZMIANY KOLORÓW I POGRUBIEŃ) */
-        .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik, .tabela-wynikow .col-10x {
+        /* POWIĘKSZENIE (1.5x) DLA KOLUMN SUMA ORAZ WYNIK */
+        .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik {
              width: 7ch !important;
              min-width: 7ch !important;
              max-width: 8ch !important;
+             font-size: 1.2rem !important; /* Większa czcionka 1.5x */
+             white-space: nowrap;
+        }
+
+        /* Standardowy rozmiar dla 10x */
+        .tabela-wynikow .col-10x {
+             width: 6ch !important;
+             min-width: 6ch !important;
+             max-width: 6ch !important;
+             white-space: nowrap;
         }
 
         /* Podświetlenie wiersza przy najechaniu myszką (hover) */
@@ -138,7 +161,7 @@
             background-color: #f8fafc !important;
         }
 
-        /* PUNKT 1: POGRUBIENIE TYLKO DLA TRZECH PIERWSZYCH MIEJSC (PODIUM) */
+        /* POGRUBIENIE TYLKO DLA TRZECH PIERWSZYCH MIEJSC (PODIUM) */
         .tabela-wynikow tr:nth-child(1) td,
         .tabela-wynikow tr:nth-child(2) td,
         .tabela-wynikow tr:nth-child(3) td { 
@@ -149,7 +172,7 @@
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:34:39</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:50:54</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>

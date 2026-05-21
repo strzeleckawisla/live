@@ -84,843 +84,120 @@
             background-color: var(--card-bg); 
         }
 
-        /* Kolumna 2: Nazwisko i Imię staje się sticky od samej lewej krawędzi (left: 0) */
-        .tabela-wynikow th:nth-child(2), 
-        .tabela-wynikow td:nth-child(2) {
+        /* ZAMRAŻANIE KOLUMNY Z NAZWISKIEM */
+        .tabela-wynikow .col-NAZWISKO_Imię {
             position: -webkit-sticky;
             position: sticky;
             left: 0;
             z-index: 2;
-            text-align: left;
+            text-align: left !important;
             background-color: var(--card-bg);
             box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); 
         }
-
-        .tabela-wynikow th:nth-child(2) {
-            background-color: var(--th-bg);
+        th.col-NAZWISKO_Imię {
+            background-color: var(--th-bg) !important;
             z-index: 3;
         }
 
-        .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { 
-            text-align: left; 
+        /* Wyrównanie dla Klubu */
+        .tabela-wynikow .col-Klub { 
+            text-align: left !important; 
         }
 
-        /* Precyzyjne sterowanie wąskimi kolumnami pojedynczych strzałów finałowych */
-        th.col-11, th.col-12, th.col-13, th.col-14, th.col-15, th.col-16, th.col-17, th.col-18, th.col-19, th.col-20, th.col-21, th.col-22, th.col-23, th.col-24, th.col-SO,
-        td:nth-child(12), td:nth-child(13), td:nth-child(14), td:nth-child(15), td:nth-child(16), td:nth-child(17), td:nth-child(18), td:nth-child(19), td:nth-child(20), td:nth-child(21), td:nth-child(22), td:nth-child(23), td:nth-child(24), td:nth-child(25) {
+        /* PUNKT 3: RÓWNE I ESTETYCZNE KOLUMNY DLA SERII I ORAZ II */
+        .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria {
+            width: 8ch !important;
+            min-width: 8ch !important;
+            max-width: 8ch !important;
+        }
+
+        /* ULTRA-WĄSKIE POJEDYNCZE STRZAŁY FINAŁOWE (11-24) ORAZ SO */
+        .tabela-wynikow .col-11, .tabela-wynikow .col-12, .tabela-wynikow .col-13, 
+        .tabela-wynikow .col-14, .tabela-wynikow .col-15, .tabela-wynikow .col-16, 
+        .tabela-wynikow .col-17, .tabela-wynikow .col-18, .tabela-wynikow .col-19, 
+        .tabela-wynikow .col-20, .tabela-wynikow .col-21, .tabela-wynikow .col-22, 
+        .tabela-wynikow .col-23, .tabela-wynikow .col-24, .tabela-wynikow .col-SO {
             width: 4ch !important;
             min-width: 4ch !important;
             max-width: 4ch !important;
             padding: 6px 2px !important;
         }
 
-        /* Bezpośrednie klasy dla najważniejszych danych */
-        .tabela-wynikow th.col-SUMA, .tabela-wynikow td:nth-last-child(2),
-        .tabela-wynikow th.col-Wynik, .tabela-wynikow td:nth-last-child(3),
-        .tabela-wynikow th.col-10x, .tabela-wynikow td:nth-last-child(1) {
-             width: auto !important;
+        /* PUNKT 2: PRECYZYJNE USTALENIE SZEROKOŚCI DLA SUMA, WYNIK, 10x (BEZ ZMIANY KOLORÓW I POGRUBIEŃ) */
+        .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik, .tabela-wynikow .col-10x {
+             width: 7ch !important;
              min-width: 7ch !important;
-             max-width: none !important;
+             max-width: 8ch !important;
         }
 
-        .tabela-wynikow th.col-SUMA, .tabela-wynikow th.col-Wynik,
-        .tabela-wynikow td:nth-last-child(2), .tabela-wynikow td:nth-last-child(3) {
-            font-weight: 800 !important;
-            background-color: #f1f5f9; 
-            color: #0f172a !important;
-        }
-
+        /* Podświetlenie wiersza przy najechaniu myszką (hover) */
         .tabela-wynikow tr:hover td { 
             background-color: #f8fafc !important; 
         }
-        .tabela-wynikow tr:hover td:nth-child(2),
-        .tabela-wynikow tr:hover td:nth-last-child(2),
-        .tabela-wynikow tr:hover td:nth-last-child(3) {
-            background-color: #f1f5f9 !important;
+        .tabela-wynikow tr:hover td.col-NAZWISKO_Imię {
+            background-color: #f8fafc !important;
         }
 
+        /* PUNKT 1: POGRUBIENIE TYLKO DLA TRZECH PIERWSZYCH MIEJSC (PODIUM) */
         .tabela-wynikow tr:nth-child(1) td,
         .tabela-wynikow tr:nth-child(2) td,
         .tabela-wynikow tr:nth-child(3) td { 
-            font-weight: bold; 
-            color: #0f172a;
+            font-weight: bold !important; 
+            color: #0f172a !important;
         }
     </style>
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:26:24</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:34:39</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-1">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th class="col-Msc" data-col="Msc">Msc</th>
-      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
-      <th class="col-Klub" data-col="Klub">Klub</th>
-      <th class="col-I_seria" data-col="I seria">I seria</th>
-      <th class="col-II_seria" data-col="II seria">II seria</th>
-      <th class="col-11" data-col="11">11</th>
-      <th class="col-12" data-col="12">12</th>
-      <th class="col-13" data-col="13">13</th>
-      <th class="col-14" data-col="14">14</th>
-      <th class="col-15" data-col="15">15</th>
-      <th class="col-16" data-col="16">16</th>
-      <th class="col-17" data-col="17">17</th>
-      <th class="col-18" data-col="18">18</th>
-      <th class="col-19" data-col="19">19</th>
-      <th class="col-20" data-col="20">20</th>
-      <th class="col-21" data-col="21">21</th>
-      <th class="col-22" data-col="22">22</th>
-      <th class="col-23" data-col="23">23</th>
-      <th class="col-24" data-col="24">24</th>
-      <th class="col-SO" data-col="SO">SO</th>
-      <th class="col-SUMA" data-col="SUMA">SUMA</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>STUCZYŃSKA Nikol</td>
-      <td>WAWEL Kraków</td>
-      <td>48.4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>48.4</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>MRUGAŁA Daria</td>
-      <td>SZAROTKA Nowy Targ</td>
-      <td>46.4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>46.4</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>ZHVANKO Tetiana</td>
-      <td>WISŁA Kraków</td>
-      <td>45.8</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>45.8</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>SOBCZAK Antoni</td>
-      <td>WISŁA Kraków</td>
-      <td>45.5</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>45.5</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>MARCINKÓW Marcin</td>
-      <td>SZAROTKA Nowy Targ</td>
-      <td>44.8</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>44.8</td>
-    </tr>
-  </tbody>
-</table>
+                        <table class="tabela-wynikow">
+                    <thead><tr><th class="col-Msc" data-col="Msc">Msc</th><th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th><th class="col-Klub" data-col="Klub">Klub</th><th class="col-I_seria" data-col="I seria">I seria</th><th class="col-II_seria" data-col="II seria">II seria</th><th class="col-11" data-col="11">11</th><th class="col-12" data-col="12">12</th><th class="col-13" data-col="13">13</th><th class="col-14" data-col="14">14</th><th class="col-15" data-col="15">15</th><th class="col-16" data-col="16">16</th><th class="col-17" data-col="17">17</th><th class="col-18" data-col="18">18</th><th class="col-19" data-col="19">19</th><th class="col-20" data-col="20">20</th><th class="col-21" data-col="21">21</th><th class="col-22" data-col="22">22</th><th class="col-23" data-col="23">23</th><th class="col-24" data-col="24">24</th><th class="col-SO" data-col="SO">SO</th><th class="col-SUMA" data-col="SUMA">SUMA</th></tr></thead>
+                    <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">STUCZYŃSKA Nikol</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I_seria">48.4</td><td class="col-II_seria"></td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">48.4</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">MRUGAŁA Daria</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I_seria">46.4</td><td class="col-II_seria"></td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">46.4</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">ZHVANKO Tetiana</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">45.8</td><td class="col-II_seria"></td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">45.8</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">SOBCZAK Antoni</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">45.5</td><td class="col-II_seria"></td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">45.5</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">MARCINKÓW Marcin</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I_seria">44.8</td><td class="col-II_seria"></td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">44.8</td></tr></tbody>
+                </table>
                     </div>
                 </div>
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny 40 Open - KPN40 Open</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-2">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th class="col-Msc" data-col="Msc">Msc</th>
-      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
-      <th class="col-Klub" data-col="Klub">Klub</th>
-      <th class="col-I" data-col="I">I</th>
-      <th class="col-II" data-col="II">II</th>
-      <th class="col-III" data-col="III">III</th>
-      <th class="col-IV" data-col="IV">IV</th>
-      <th class="col-Wynik" data-col="Wynik">Wynik</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>SOBCZAK Antoni</td>
-      <td>WISŁA Kraków</td>
-      <td>99.1</td>
-      <td>102.4</td>
-      <td>99.8</td>
-      <td>101.1</td>
-      <td>402.4</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>STUCZYŃSKA Nikol</td>
-      <td>WAWEL Kraków</td>
-      <td>99.2</td>
-      <td>101.2</td>
-      <td>100.7</td>
-      <td>99.6</td>
-      <td>400.7</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>MRUGAŁA Daria</td>
-      <td>SZAROTKA Nowy Targ</td>
-      <td>98.6</td>
-      <td>99.9</td>
-      <td>98.7</td>
-      <td>98.7</td>
-      <td>395.9</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>ZHVANKO Tetiana</td>
-      <td>WISŁA Kraków</td>
-      <td>98.1</td>
-      <td>96.8</td>
-      <td>98.1</td>
-      <td>93.3</td>
-      <td>386.3</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>MARCINKÓW Marcin</td>
-      <td>SZAROTKA Nowy Targ</td>
-      <td>92.3</td>
-      <td>97.1</td>
-      <td>98.4</td>
-      <td>98.4</td>
-      <td>386.2</td>
-    </tr>
-  </tbody>
-</table>
+                        <table class="tabela-wynikow">
+                    <thead><tr><th class="col-Msc" data-col="Msc">Msc</th><th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th><th class="col-Klub" data-col="Klub">Klub</th><th class="col-I" data-col="I">I</th><th class="col-II" data-col="II">II</th><th class="col-III" data-col="III">III</th><th class="col-IV" data-col="IV">IV</th><th class="col-Wynik" data-col="Wynik">Wynik</th></tr></thead>
+                    <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">SOBCZAK Antoni</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">99.1</td><td class="col-II">102.4</td><td class="col-III">99.8</td><td class="col-IV">101.1</td><td class="col-Wynik">402.4</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">STUCZYŃSKA Nikol</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">99.2</td><td class="col-II">101.2</td><td class="col-III">100.7</td><td class="col-IV">99.6</td><td class="col-Wynik">400.7</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">MRUGAŁA Daria</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I">98.6</td><td class="col-II">99.9</td><td class="col-III">98.7</td><td class="col-IV">98.7</td><td class="col-Wynik">395.9</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">ZHVANKO Tetiana</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">98.1</td><td class="col-II">96.8</td><td class="col-III">98.1</td><td class="col-IV">93.3</td><td class="col-Wynik">386.3</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">MARCINKÓW Marcin</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I">92.3</td><td class="col-II">97.1</td><td class="col-III">98.4</td><td class="col-IV">98.4</td><td class="col-Wynik">386.2</td></tr></tbody>
+                </table>
                     </div>
                 </div>
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny Open - Finał</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-3">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th class="col-Msc" data-col="Msc">Msc</th>
-      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
-      <th class="col-Klub" data-col="Klub">Klub</th>
-      <th class="col-I_seria" data-col="I seria">I seria</th>
-      <th class="col-II_seria" data-col="II seria">II seria</th>
-      <th class="col-11" data-col="11">11</th>
-      <th class="col-12" data-col="12">12</th>
-      <th class="col-13" data-col="13">13</th>
-      <th class="col-14" data-col="14">14</th>
-      <th class="col-15" data-col="15">15</th>
-      <th class="col-16" data-col="16">16</th>
-      <th class="col-17" data-col="17">17</th>
-      <th class="col-18" data-col="18">18</th>
-      <th class="col-19" data-col="19">19</th>
-      <th class="col-20" data-col="20">20</th>
-      <th class="col-21" data-col="21">21</th>
-      <th class="col-22" data-col="22">22</th>
-      <th class="col-23" data-col="23">23</th>
-      <th class="col-24" data-col="24">24</th>
-      <th class="col-SO" data-col="SO">SO</th>
-      <th class="col-SUMA" data-col="SUMA">SUMA</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>PABJAN Julia</td>
-      <td>KS ZO LOK Kraków</td>
-      <td>48.4</td>
-      <td>49.0</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>97.4</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>GIZA Maja</td>
-      <td>WISŁA Kraków</td>
-      <td>48.4</td>
-      <td>47.6</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>96.0</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>ZGODA Paweł</td>
-      <td>WISŁA Kraków</td>
-      <td>47.6</td>
-      <td>48.2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>95.8</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>DEMBOWSKI Adam</td>
-      <td>KS ZO LOK Kraków</td>
-      <td>46.4</td>
-      <td>49.4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>95.8</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>ŁUŹNIAK Tomasz</td>
-      <td>WISŁA Kraków</td>
-      <td>45.8</td>
-      <td>49.2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>95.0</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>REITER Jacek</td>
-      <td>WISŁA Kraków</td>
-      <td>45.5</td>
-      <td>47.3</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>92.8</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>KAWALEC Grzegorz</td>
-      <td>JTS Jaworzno</td>
-      <td>44.8</td>
-      <td>46.3</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>91.1</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>ŚWIERCZYŃSKA Pola</td>
-      <td>WISŁA Kraków</td>
-      <td>41.9</td>
-      <td>46.7</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>88.6</td>
-    </tr>
-  </tbody>
-</table>
+                        <table class="tabela-wynikow">
+                    <thead><tr><th class="col-Msc" data-col="Msc">Msc</th><th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th><th class="col-Klub" data-col="Klub">Klub</th><th class="col-I_seria" data-col="I seria">I seria</th><th class="col-II_seria" data-col="II seria">II seria</th><th class="col-11" data-col="11">11</th><th class="col-12" data-col="12">12</th><th class="col-13" data-col="13">13</th><th class="col-14" data-col="14">14</th><th class="col-15" data-col="15">15</th><th class="col-16" data-col="16">16</th><th class="col-17" data-col="17">17</th><th class="col-18" data-col="18">18</th><th class="col-19" data-col="19">19</th><th class="col-20" data-col="20">20</th><th class="col-21" data-col="21">21</th><th class="col-22" data-col="22">22</th><th class="col-23" data-col="23">23</th><th class="col-24" data-col="24">24</th><th class="col-SO" data-col="SO">SO</th><th class="col-SUMA" data-col="SUMA">SUMA</th></tr></thead>
+                    <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">PABJAN Julia</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I_seria">48.4</td><td class="col-II_seria">49.0</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">97.4</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">GIZA Maja</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">48.4</td><td class="col-II_seria">47.6</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">96.0</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">ZGODA Paweł</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">47.6</td><td class="col-II_seria">48.2</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">95.8</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">DEMBOWSKI Adam</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I_seria">46.4</td><td class="col-II_seria">49.4</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">95.8</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">ŁUŹNIAK Tomasz</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">45.8</td><td class="col-II_seria">49.2</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">95.0</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">REITER Jacek</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">45.5</td><td class="col-II_seria">47.3</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">92.8</td></tr><tr><td class="col-Msc">7</td><td class="col-NAZWISKO_Imię">KAWALEC Grzegorz</td><td class="col-Klub">JTS Jaworzno</td><td class="col-I_seria">44.8</td><td class="col-II_seria">46.3</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">91.1</td></tr><tr><td class="col-Msc">8</td><td class="col-NAZWISKO_Imię">ŚWIERCZYŃSKA Pola</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I_seria">41.9</td><td class="col-II_seria">46.7</td><td class="col-11"></td><td class="col-12"></td><td class="col-13"></td><td class="col-14"></td><td class="col-15"></td><td class="col-16"></td><td class="col-17"></td><td class="col-18"></td><td class="col-19"></td><td class="col-20"></td><td class="col-21"></td><td class="col-22"></td><td class="col-23"></td><td class="col-24"></td><td class="col-SO"></td><td class="col-SUMA">88.6</td></tr></tbody>
+                </table>
                     </div>
                 </div>
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-4">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th class="col-Msc" data-col="Msc">Msc</th>
-      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
-      <th class="col-Klub" data-col="Klub">Klub</th>
-      <th class="col-I" data-col="I">I</th>
-      <th class="col-II" data-col="II">II</th>
-      <th class="col-III" data-col="III">III</th>
-      <th class="col-IV" data-col="IV">IV</th>
-      <th class="col-Wynik" data-col="Wynik">Wynik</th>
-      <th class="col-10x" data-col="10x">10x</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>MADEJ Paweł</td>
-      <td>WISŁA Kraków</td>
-      <td>93</td>
-      <td>93</td>
-      <td>92</td>
-      <td>94</td>
-      <td>372</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>REITER Jacek</td>
-      <td>WISŁA Kraków</td>
-      <td>92</td>
-      <td>93</td>
-      <td>91</td>
-      <td>93</td>
-      <td>369</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>GIZA Maja</td>
-      <td>WISŁA Kraków</td>
-      <td>93</td>
-      <td>89</td>
-      <td>90</td>
-      <td>94</td>
-      <td>366</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>DEMBOWSKI Adam</td>
-      <td>KS ZO LOK Kraków</td>
-      <td>91</td>
-      <td>91</td>
-      <td>90</td>
-      <td>87</td>
-      <td>359</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>ŁUŹNIAK Tomasz</td>
-      <td>WISŁA Kraków</td>
-      <td>91</td>
-      <td>88</td>
-      <td>89</td>
-      <td>89</td>
-      <td>357</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>KAWALEC Grzegorz</td>
-      <td>JTS Jaworzno</td>
-      <td>86</td>
-      <td>89</td>
-      <td>88</td>
-      <td>93</td>
-      <td>356</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>ZGODA Paweł</td>
-      <td>WISŁA Kraków</td>
-      <td>89</td>
-      <td>89</td>
-      <td>88</td>
-      <td>90</td>
-      <td>356</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>PABJAN Julia</td>
-      <td>KS ZO LOK Kraków</td>
-      <td>85</td>
-      <td>88</td>
-      <td>91</td>
-      <td>91</td>
-      <td>355</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>KRZYSZOWSKI Józef</td>
-      <td>PRECYZJA Kraków</td>
-      <td>89</td>
-      <td>84</td>
-      <td>86</td>
-      <td>88</td>
-      <td>347</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>LISZKA Jakub</td>
-      <td>WISŁA Kraków</td>
-      <td>89</td>
-      <td>86</td>
-      <td>85</td>
-      <td>83</td>
-      <td>343</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>ŚWIERCZYŃSKA Pola</td>
-      <td>WISŁA Kraków</td>
-      <td>86</td>
-      <td>90</td>
-      <td>78</td>
-      <td>85</td>
-      <td>339</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>BORZYLO Oleksii</td>
-      <td>WAWEL Kraków</td>
-      <td>82</td>
-      <td>84</td>
-      <td>85</td>
-      <td>87</td>
-      <td>338</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>KAWALEC-CNOTA Milena</td>
-      <td>JTS Jaworzno</td>
-      <td>82</td>
-      <td>86</td>
-      <td>87</td>
-      <td>79</td>
-      <td>334</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>MARCULA Tomasz</td>
-      <td>WAWEL Kraków</td>
-      <td>77</td>
-      <td>84</td>
-      <td>83</td>
-      <td>82</td>
-      <td>326</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>RYNDUCH Julia</td>
-      <td>MŁODY STRZELEC Bochnia</td>
-      <td>83</td>
-      <td>81</td>
-      <td>84</td>
-      <td>74</td>
-      <td>322</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
+                        <table class="tabela-wynikow">
+                    <thead><tr><th class="col-Msc" data-col="Msc">Msc</th><th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th><th class="col-Klub" data-col="Klub">Klub</th><th class="col-I" data-col="I">I</th><th class="col-II" data-col="II">II</th><th class="col-III" data-col="III">III</th><th class="col-IV" data-col="IV">IV</th><th class="col-Wynik" data-col="Wynik">Wynik</th><th class="col-10x" data-col="10x">10x</th></tr></thead>
+                    <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">MADEJ Paweł</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">93</td><td class="col-II">93</td><td class="col-III">92</td><td class="col-IV">94</td><td class="col-Wynik">372</td><td class="col-10x">6</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">REITER Jacek</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">92</td><td class="col-II">93</td><td class="col-III">91</td><td class="col-IV">93</td><td class="col-Wynik">369</td><td class="col-10x">3</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">GIZA Maja</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">93</td><td class="col-II">89</td><td class="col-III">90</td><td class="col-IV">94</td><td class="col-Wynik">366</td><td class="col-10x">6</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">DEMBOWSKI Adam</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I">91</td><td class="col-II">91</td><td class="col-III">90</td><td class="col-IV">87</td><td class="col-Wynik">359</td><td class="col-10x">7</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">ŁUŹNIAK Tomasz</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">91</td><td class="col-II">88</td><td class="col-III">89</td><td class="col-IV">89</td><td class="col-Wynik">357</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">KAWALEC Grzegorz</td><td class="col-Klub">JTS Jaworzno</td><td class="col-I">86</td><td class="col-II">89</td><td class="col-III">88</td><td class="col-IV">93</td><td class="col-Wynik">356</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">7</td><td class="col-NAZWISKO_Imię">ZGODA Paweł</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">89</td><td class="col-II">89</td><td class="col-III">88</td><td class="col-IV">90</td><td class="col-Wynik">356</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">8</td><td class="col-NAZWISKO_Imię">PABJAN Julia</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I">85</td><td class="col-II">88</td><td class="col-III">91</td><td class="col-IV">91</td><td class="col-Wynik">355</td><td class="col-10x">3</td></tr><tr><td class="col-Msc">9</td><td class="col-NAZWISKO_Imię">KRZYSZOWSKI Józef</td><td class="col-Klub">PRECYZJA Kraków</td><td class="col-I">89</td><td class="col-II">84</td><td class="col-III">86</td><td class="col-IV">88</td><td class="col-Wynik">347</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">10</td><td class="col-NAZWISKO_Imię">LISZKA Jakub</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">89</td><td class="col-II">86</td><td class="col-III">85</td><td class="col-IV">83</td><td class="col-Wynik">343</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">11</td><td class="col-NAZWISKO_Imię">ŚWIERCZYŃSKA Pola</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">86</td><td class="col-II">90</td><td class="col-III">78</td><td class="col-IV">85</td><td class="col-Wynik">339</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">12</td><td class="col-NAZWISKO_Imię">BORZYLO Oleksii</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">82</td><td class="col-II">84</td><td class="col-III">85</td><td class="col-IV">87</td><td class="col-Wynik">338</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">13</td><td class="col-NAZWISKO_Imię">KAWALEC-CNOTA Milena</td><td class="col-Klub">JTS Jaworzno</td><td class="col-I">82</td><td class="col-II">86</td><td class="col-III">87</td><td class="col-IV">79</td><td class="col-Wynik">334</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">14</td><td class="col-NAZWISKO_Imię">MARCULA Tomasz</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">77</td><td class="col-II">84</td><td class="col-III">83</td><td class="col-IV">82</td><td class="col-Wynik">326</td><td class="col-10x"></td></tr><tr><td class="col-Msc">15</td><td class="col-NAZWISKO_Imię">RYNDUCH Julia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">83</td><td class="col-II">81</td><td class="col-III">84</td><td class="col-IV">74</td><td class="col-Wynik">322</td><td class="col-10x">4</td></tr></tbody>
+                </table>
                     </div>
                 </div>
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-5">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th class="col-Msc" data-col="Msc">Msc</th>
-      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
-      <th class="col-Klub" data-col="Klub">Klub</th>
-      <th class="col-I" data-col="I">I</th>
-      <th class="col-II" data-col="II">II</th>
-      <th class="col-III" data-col="III">III</th>
-      <th class="col-IV" data-col="IV">IV</th>
-      <th class="col-Wynik" data-col="Wynik">Wynik</th>
-      <th class="col-10x" data-col="10x">10x</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>ŚWIERCZYŃSKI Filip</td>
-      <td>WISŁA Kraków</td>
-      <td>89</td>
-      <td>84</td>
-      <td>92</td>
-      <td>92</td>
-      <td>357</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>CHERVINSKA Anastazja</td>
-      <td>MŁODY STRZELEC Bochnia</td>
-      <td>94</td>
-      <td>86</td>
-      <td>92</td>
-      <td>82</td>
-      <td>354</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>PAĆKO Bartosz</td>
-      <td>WAWEL Kraków</td>
-      <td>93</td>
-      <td>83</td>
-      <td>84</td>
-      <td>86</td>
-      <td>346</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>PRZYBYLSKI Piotr</td>
-      <td>WAWEL Kraków</td>
-      <td>90</td>
-      <td>84</td>
-      <td>85</td>
-      <td>82</td>
-      <td>341</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>MIKULEC Alicja</td>
-      <td>MŁODY STRZELEC Bochnia</td>
-      <td>83</td>
-      <td>87</td>
-      <td>85</td>
-      <td>83</td>
-      <td>338</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>TRUBICKA Sophie</td>
-      <td>WAWEL Kraków</td>
-      <td>86</td>
-      <td>84</td>
-      <td>83</td>
-      <td>81</td>
-      <td>334</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>MLECZKO Tadeusz</td>
-      <td>WAWEL Kraków</td>
-      <td>82</td>
-      <td>81</td>
-      <td>81</td>
-      <td>85</td>
-      <td>329</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>SOWA Malwina</td>
-      <td>WAWEL Kraków</td>
-      <td>83</td>
-      <td>85</td>
-      <td>79</td>
-      <td>81</td>
-      <td>328</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>KOLESNIK Polina</td>
-      <td>WAWEL Kraków</td>
-      <td>85</td>
-      <td>76</td>
-      <td>85</td>
-      <td>82</td>
-      <td>328</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>SOJKA Karol</td>
-      <td>WISŁA Kraków</td>
-      <td>73</td>
-      <td>73</td>
-      <td>71</td>
-      <td>60</td>
-      <td>277</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Nowy Rekord Turnieju</td>
-      <td>ŚWIERCZYŃSKI Filip</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>357</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+                        <table class="tabela-wynikow">
+                    <thead><tr><th class="col-Msc" data-col="Msc">Msc</th><th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th><th class="col-Klub" data-col="Klub">Klub</th><th class="col-I" data-col="I">I</th><th class="col-II" data-col="II">II</th><th class="col-III" data-col="III">III</th><th class="col-IV" data-col="IV">IV</th><th class="col-Wynik" data-col="Wynik">Wynik</th><th class="col-10x" data-col="10x">10x</th></tr></thead>
+                    <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">ŚWIERCZYŃSKI Filip</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">89</td><td class="col-II">84</td><td class="col-III">92</td><td class="col-IV">92</td><td class="col-Wynik">357</td><td class="col-10x">3</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">CHERVINSKA Anastazja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">94</td><td class="col-II">86</td><td class="col-III">92</td><td class="col-IV">82</td><td class="col-Wynik">354</td><td class="col-10x">5</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">PAĆKO Bartosz</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">93</td><td class="col-II">83</td><td class="col-III">84</td><td class="col-IV">86</td><td class="col-Wynik">346</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">PRZYBYLSKI Piotr</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">90</td><td class="col-II">84</td><td class="col-III">85</td><td class="col-IV">82</td><td class="col-Wynik">341</td><td class="col-10x">5</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">MIKULEC Alicja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">83</td><td class="col-II">87</td><td class="col-III">85</td><td class="col-IV">83</td><td class="col-Wynik">338</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">TRUBICKA Sophie</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">86</td><td class="col-II">84</td><td class="col-III">83</td><td class="col-IV">81</td><td class="col-Wynik">334</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">7</td><td class="col-NAZWISKO_Imię">MLECZKO Tadeusz</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">82</td><td class="col-II">81</td><td class="col-III">81</td><td class="col-IV">85</td><td class="col-Wynik">329</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">8</td><td class="col-NAZWISKO_Imię">SOWA Malwina</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">83</td><td class="col-II">85</td><td class="col-III">79</td><td class="col-IV">81</td><td class="col-Wynik">328</td><td class="col-10x">4</td></tr><tr><td class="col-Msc">9</td><td class="col-NAZWISKO_Imię">KOLESNIK Polina</td><td class="col-Klub">WAWEL Kraków</td><td class="col-I">85</td><td class="col-II">76</td><td class="col-III">85</td><td class="col-IV">82</td><td class="col-Wynik">328</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">10</td><td class="col-NAZWISKO_Imię">SOJKA Karol</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">73</td><td class="col-II">73</td><td class="col-III">71</td><td class="col-IV">60</td><td class="col-Wynik">277</td><td class="col-10x">1</td></tr><tr><td class="col-Msc"></td><td class="col-NAZWISKO_Imię">Nowy Rekord Turnieju</td><td class="col-Klub">ŚWIERCZYŃSKI Filip</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik">357</td><td class="col-10x"></td></tr></tbody>
+                </table>
                     </div>
                 </div>
                 </div>

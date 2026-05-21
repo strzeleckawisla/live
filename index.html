@@ -3,36 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="5">
     <title>Wyniki Zawodów na Żywo</title>
     <style>
         :root {
-            --bg-color: #ffffff;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #000000;
-            --accent-color: #000000; 
-            --border-color: #26262f;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --accent-color: #0284c7; 
+            --border-color: #e2e8f0;
+
+            /* Kolory podium */
+            --gold-bg: #fef08a;
+            --silver-bg: #f1f5f9;
+            --bronze-bg: #ffedd5;
         }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
-        .odswiezanie { color: #888899; font-size: 0.9rem; margin-bottom: 30px; }
+        body { 
+            font-family: 'Segoe UI', -apple-system, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        h1 { 
+            color: #0f172a; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 5px; 
+            font-size: 2rem;
+        }
+        .odswiezanie { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            margin-bottom: 30px; 
+            font-weight: 500;
+        }
         .kontener { width: 100%; max-width: 1400px; }
-        .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-        .tabela-kontener { width: 100%; overflow-x: auto; }
-        h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 0; }
+        .sekcja-grupy { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); 
+        }
+        .tabela-kontener { 
+            width: 100%; 
+            overflow-x: auto; 
+        }
+        h2 { 
+            color: var(--accent-color); 
+            border-bottom: 2px solid var(--border-color); 
+            padding-bottom: 10px; 
+            margin-top: 0; 
+            font-size: 1.4rem;
+        }
         .tabela-wynikow { width: 100%; border-collapse: collapse; white-space: nowrap; }
-        .tabela-wynikow th { background-color: #1c1c24; color: #ffffff; padding: 12px 15px; text-transform: uppercase; font-size: 0.85rem; border-bottom: 2px solid var(--border-color); text-align: center; }
-        .tabela-wynikow td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); font-size: 1rem; text-align: center; }
+        .tabela-wynikow th { 
+            background-color: #f1f5f9; 
+            color: #334155; 
+            padding: 12px 15px; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            font-weight: 700;
+            border-bottom: 2px solid var(--border-color); 
+            text-align: center; 
+        }
+        .tabela-wynikow td { 
+            padding: 12px 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            font-size: 0.95rem; 
+            text-align: center; 
+        }
+
+        /* Wyrównanie do lewej dla nazwisk i klubów */
         .tabela-wynikow th:nth-child(2), .tabela-wynikow td:nth-child(2),
-        .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { text-align: left; }
-        .tabela-wynikow tr:hover td { background-color: #1e1e26; color: #ffffff; }
-        .tabela-wynikow tr:first-child td { font-weight: bold; color: var(--accent-color); }
+        .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { 
+            text-align: left; 
+        }
+
+        /* Podświetlanie wiersza po najechaniu myszką */
+        .tabela-wynikow tr:hover td { background-color: #f8fafc; }
+
+        /* --- WYRÓŻNIENIE PODIUM (Miejsca 1, 2, 3) --- */
+        .tabela-wynikow tr:nth-child(1) td { 
+            font-weight: bold; 
+            background-color: var(--gold-bg); 
+            color: #854d0e;
+        }
+        .tabela-wynikow tr:nth-child(2) td { 
+            font-weight: bold; 
+            background-color: var(--silver-bg); 
+            color: #334155;
+        }
+        .tabela-wynikow tr:nth-child(3) td { 
+            font-weight: bold; 
+            background-color: var(--bronze-bg); 
+            color: #9a3412;
+        }
     </style>
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: 19:32:32 (Strona odświeża się automatycznie)</div>
-    <div class="kontener">
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">19:59:36</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
                     <div class="tabela-kontener">
@@ -828,5 +905,36 @@
                     </div>
                 </div>
                 </div>
+
+    <!-- SPYTNY SKRYPT AUTOMATYCZNEJ PODMIANY W TLE -->
+    <script>
+        async function fetchUpdates() {
+            try {
+                // Pobieramy aktualną stronę z serwera w tle
+                const response = await fetch(window.location.href, { cache: "no-store" });
+                if (!response.ok) return;
+
+                const htmlText = await response.text();
+
+                // Tworzymy wirtualny dokument, żeby wyciągnąć z niego nowe tabele
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, "text/html");
+
+                const newContent = doc.getElementById("live-content").innerHTML;
+                const newTime = doc.getElementById("time-hook").innerHTML;
+
+                // Podmieniamy samą treść bez przeładowywania okna i resetowania scrolla!
+                document.getElementById("live-content").innerHTML = newContent;
+                document.getElementById("time-hook").innerHTML = newTime;
+
+                console.log("Dane zaktualizowane płynnie.");
+            } catch (error) {
+                console.error("Błąd podczas sprawdzania aktualizacji:", error);
+            }
+        }
+
+        // Uruchamiaj sprawdzanie co 5 sekund
+        setInterval(fetchUpdates, 5000);
+    </script>
 </body>
 </html>

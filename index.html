@@ -2,176 +2,36 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wyniki Zawodów na Żywo</title>
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-muted: #64748b;
-            --accent-color: #0284c7; 
-            --border-color: #e2e8f0;
-            --th-bg: #f1f5f9;
-        }
-        body { 
-            font-family: 'Segoe UI', -apple-system, sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            margin: 0; 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
-        h1 { 
-            color: #0f172a; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            margin-bottom: 5px; 
-            font-size: 1.8rem;
-        }
-        .odswiezanie { 
-            color: var(--text-muted); 
-            font-size: 0.85rem; 
-            margin-bottom: 20px; 
-            font-weight: 500;
-        }
+        :root { --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #1e293b; --text-muted: #64748b; --accent-color: #0284c7; --border-color: #e2e8f0; --th-bg: #f1f5f9; }
+        body { font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        h1 { color: #0f172a; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-size: 1.8rem;}
+        .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; font-weight: 500;}
         .kontener { width: 100%; max-width: 1400px; }
-        .sekcja-grupy { 
-            background-color: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            border-radius: 10px; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
-        }
-        .tabela-kontener { 
-            width: 100%; 
-            overflow-x: auto; 
-            position: relative;
-        }
-        h2 { 
-            color: var(--accent-color); 
-            border-bottom: 2px solid var(--border-color); 
-            padding-bottom: 8px; 
-            margin-top: 0; 
-            font-size: 1.25rem;
-        }
-
-        .tabela-wynikow { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0;
-            font-size: 0.85rem; 
-        }
-        .tabela-wynikow th { 
-            background-color: var(--th-bg); 
-            color: #334155; 
-            padding: 8px 10px; 
-            text-transform: uppercase; 
-            font-size: 0.75rem; 
-            font-weight: 700;
-            border-bottom: 2px solid var(--border-color); 
-            text-align: center; 
-            white-space: nowrap;
-        }
-        .tabela-wynikow td { 
-            padding: 6px 10px; 
-            border-bottom: 1px solid var(--border-color); 
-            color: #334155;
-            text-align: center; 
-            background-color: var(--card-bg); 
-            vertical-align: middle; 
-        }
-
-        /* ZAMRAŻANIE ORAZ POWIĘKSZENIE (1.5x) KOLUMNY Z NAZWISKIEM */
-        .tabela-wynikow .col-NAZWISKO_Imię {
-            position: -webkit-sticky;
-            position: sticky;
-            left: 0;
-            z-index: 2;
-            text-align: left !important;
-            background-color: var(--card-bg);
-            box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); 
-
-            font-size: 1.2rem !important; 
-            white-space: normal !important; 
-            width: 15ch !important;         
-            min-width: 13ch !important;
-            max-width: 16ch !important;
-            line-height: 1.1;               
-        }
-        th.col-NAZWISKO_Imię {
-            background-color: var(--th-bg) !important;
-            z-index: 3;
-            white-space: nowrap !important; 
-        }
-
-        /* Wyrównanie dla Klubu */
-        .tabela-wynikow .col-Klub { 
-            text-align: left !important; 
-            white-space: nowrap;
-        }
-
-        /* PUNKT 1: MAKSYMALNIE ZWĘŻONE KOLUMNY DLA SERII I ORAZ II (ZACHOWUJĄCE TYTUŁ) */
-        .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria {
-            width: auto !important;
-            padding-left: 4px !important;
-            padding-right: 4px !important;
-            white-space: nowrap;
-        }
-
-        /* ULTRA-WĄSKIE POJEDYNCZE STRZAŁY FINAŁOWE (11-24) ORAZ SO */
-        .tabela-wynikow .col-11, .tabela-wynikow .col-12, .tabela-wynikow .col-13, 
-        .tabela-wynikow .col-14, .tabela-wynikow .col-15, .tabela-wynikow .col-16, 
-        .tabela-wynikow .col-17, .tabela-wynikow .col-18, .tabela-wynikow .col-19, 
-        .tabela-wynikow .col-20, .tabela-wynikow .col-21, .tabela-wynikow .col-22, 
-        .tabela-wynikow .col-23, .tabela-wynikow .col-24, .tabela-wynikow .col-SO {
-            width: 4ch !important;
-            min-width: 4ch !important;
-            max-width: 4ch !important;
-            padding: 6px 2px !important;
-            white-space: nowrap;
-        }
-
-        /* POWIĘKSZENIE (1.5x) DLA KOLUMN SUMA ORAZ WYNIK */
-        .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik {
-             width: 7ch !important;
-             min-width: 7ch !important;
-             max-width: 8ch !important;
-             font-size: 1.2rem !important; 
-             white-space: nowrap;
-        }
-
-        /* Standardowy rozmiar dla 10x */
-        .tabela-wynikow .col-10x {
-             width: 6ch !important;
-             min-width: 6ch !important;
-             max-width: 6ch !important;
-             white-space: nowrap;
-        }
-
-        /* Podświetlenie wiersza przy najechaniu myszką (hover) */
-        .tabela-wynikow tr:hover td { 
-            background-color: #f8fafc !important; 
-        }
-        .tabela-wynikow tr:hover td.col-NAZWISKO_Imię {
-            background-color: #f8fafc !important;
-        }
-
-        /* POGRUBIENIE TYLKO DLA TRZECH PIERWSZYCH MIEJSC (PODIUM) */
-        .tabela-wynikow tr:nth-child(1) td,
-        .tabela-wynikow tr:nth-child(2) td,
-        .tabela-wynikow tr:nth-child(3) td { 
-            font-weight: bold !important; 
-            color: #0f172a !important;
-        }
+        .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);}
+        .tabela-kontener { width: 100%; overflow-x: auto; position: relative;}
+        h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; margin-top: 0; font-size: 1.25rem;}
+        .tabela-wynikow { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
+        .tabela-wynikow th { background-color: var(--th-bg); color: #334155; padding: 8px 10px; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--border-color); text-align: center; white-space: nowrap;}
+        .tabela-wynikow td { padding: 6px 10px; border-bottom: 1px solid var(--border-color); color: #334155; text-align: center; background-color: var(--card-bg); vertical-align: middle; }
+        .tabela-wynikow .col-NAZWISKO_Imię { position: -webkit-sticky; position: sticky; left: 0; z-index: 2; text-align: left !important; background-color: var(--card-bg); box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); font-size: 1.2rem !important; white-space: normal !important; width: 15ch !important; min-width: 13ch !important; max-width: 16ch !important; line-height: 1.1; }
+        th.col-NAZWISKO_Imię { background-color: var(--th-bg) !important; z-index: 3; white-space: nowrap !important; }
+        .tabela-wynikow .col-Klub { text-align: left !important; white-space: nowrap;}
+        .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria { width: auto !important; padding-left: 4px !important; padding-right: 4px !important; white-space: nowrap;}
+        .tabela-wynikow .col-11, .tabela-wynikow .col-12, .tabela-wynikow .col-13, .tabela-wynikow .col-14, .tabela-wynikow .col-15, .tabela-wynikow .col-16, .tabela-wynikow .col-17, .tabela-wynikow .col-18, .tabela-wynikow .col-19, .tabela-wynikow .col-20, .tabela-wynikow .col-21, .tabela-wynikow .col-22, .tabela-wynikow .col-23, .tabela-wynikow .col-24, .tabela-wynikow .col-SO { width: 4ch !important; min-width: 4ch !important; max-width: 4ch !important; padding: 6px 2px !important; white-space: nowrap;}
+        .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik { width: 7ch !important; min-width: 7ch !important; max-width: 8ch !important; font-size: 1.2rem !important; white-space: nowrap;}
+        .tabela-wynikow .col-10x { width: 6ch !important; min-width: 6ch !important; max-width: 6ch !important; white-space: nowrap;}
+        .tabela-wynikow tr:hover td { background-color: #f8fafc !important; }
+        .tabela-wynikow tr:hover td.col-NAZWISKO_Imię { background-color: #f8fafc !important;}
+        .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important;}
     </style>
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">21:00:48</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">21:06:58</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
@@ -233,53 +93,29 @@
                     </div>
                 </div>
                 </div>
-
     <script>
-        // PUNKT 2: INTELIGENTNY SYSTEM ODŚWIEŻANIA (LOKALNIE VS SERWER GITHUB)
         async function fetchUpdates() {
-            // Jeśli plik odpala się bez serwera (file:///), robimy pełny bezpieczny przeładunek strony
-            if (window.location.protocol === 'file:') {
-                window.location.reload();
-                return;
-            }
-
-            // Jeśli plik działa na serwerze GitHub, aktualizujemy go cicho w tle bez mrugania ekranem
             try {
                 const response = await fetch(window.location.href, { cache: "no-store" });
                 if (!response.ok) return;
-
                 const htmlText = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlText, "text/html");
-
                 const scrollPositions = {};
                 document.querySelectorAll('.tabela-kontener').forEach(el => {
                     const id = el.getAttribute('data-scroll-id');
-                    if (id) {
-                        scrollPositions[id] = el.scrollLeft;
-                    }
+                    if (id) { scrollPositions[id] = el.scrollLeft; }
                 });
-
                 const newContent = doc.getElementById("live-content").innerHTML;
                 const newTime = doc.getElementById("time-hook").innerHTML;
-
                 document.getElementById("live-content").innerHTML = newContent;
                 document.getElementById("time-hook").innerHTML = newTime;
-
                 document.querySelectorAll('.tabela-kontener').forEach(el => {
                     const id = el.getAttribute('data-scroll-id');
-                    if (id && scrollPositions[id] !== undefined) {
-                        el.scrollLeft = scrollPositions[id];
-                    }
+                    if (id && scrollPositions[id] !== undefined) { el.scrollLeft = scrollPositions[id]; }
                 });
-
-                console.log("Dane i pozycje suwaków zaktualizowane.");
-            } catch (error) {
-                console.error("Błąd podczas sprawdzania aktualizacji:", error);
-            }
+            } catch (error) { console.error("Błąd aktualizacji:", error); }
         }
-
-        // Sprawdzaj zmiany co 5 sekund
         setInterval(fetchUpdates, 5000);
     </script>
 </body>

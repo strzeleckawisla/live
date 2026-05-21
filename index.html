@@ -61,7 +61,7 @@
 
         .tabela-wynikow { 
             width: 100%; 
-            border-collapse: separate; /* Zmienione z collapse, aby sticky border działało prawidłowo */
+            border-collapse: separate; 
             border-spacing: 0;
             white-space: nowrap; 
             font-size: 0.85rem; 
@@ -81,56 +81,64 @@
             border-bottom: 1px solid var(--border-color); 
             color: #334155;
             text-align: center; 
-            background-color: var(--card-bg); /* Wymagane tło dla poprawnego zakrywania przy sticky */
+            background-color: var(--card-bg); 
         }
 
-        /* --- ZAMRAŻANIE KOLUMN (Msc oraz NAZWISKO Imię) --- */
-        /* Kolumna 1: Miejsce (Msc) */
-        .tabela-wynikow th:nth-child(1), 
-        .tabela-wynikow td:nth-child(1) {
-            position: -webkit-sticky;
-            position: sticky;
-            left: 0;
-            z-index: 2;
-        }
-        /* Kolumna 2: Nazwisko i Imię */
+        /* Kolumna 2: Nazwisko i Imię staje się sticky od samej lewej krawędzi (left: 0) */
         .tabela-wynikow th:nth-child(2), 
         .tabela-wynikow td:nth-child(2) {
             position: -webkit-sticky;
             position: sticky;
-            left: 45px; /* Szerokość pierwszej kolumny Msc, żeby się nie nakładały */
+            left: 0;
             z-index: 2;
             text-align: left;
-            box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); /* Subtelny cień odcinający nazwisko od wyników */
+            background-color: var(--card-bg);
+            box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); 
         }
 
-        /* Nagłówki zamrożone muszą mieć wyższy priorytet i kolor tła th */
-        .tabela-wynikow th:nth-child(1), .tabela-wynikow th:nth-child(2) {
+        .tabela-wynikow th:nth-child(2) {
             background-color: var(--th-bg);
             z-index: 3;
         }
 
-        /* Kolumna 3: Klub (Wyrównanie do lewej, ale nie jest zamrożona) */
         .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { 
             text-align: left; 
         }
 
-        /* --- MAKSYMALNE ZWĘŻENIE KOLUMN LICZBOWYCH --- */
-        /* Dotyczy wszystkich kolumn z wynikami serii, strzałów 11-24, SO, sum itd. */
-        .tabela-wynikow th:not(:nth-child(2)):not(:nth-child(3)), 
-        .tabela-wynikow td:not(:nth-child(2)):not(:nth-child(3)) {
-            width: 4ch;
-            min-width: 4ch;
-            max-width: 5ch;
-            padding: 6px 4px; /* Węższy boczny margines wewnątrz komórek liczbowych */
+        /* Precyzyjne sterowanie wąskimi kolumnami pojedynczych strzałów finałowych */
+        th.col-11, th.col-12, th.col-13, th.col-14, th.col-15, th.col-16, th.col-17, th.col-18, th.col-19, th.col-20, th.col-21, th.col-22, th.col-23, th.col-24, th.col-SO,
+        td:nth-child(12), td:nth-child(13), td:nth-child(14), td:nth-child(15), td:nth-child(16), td:nth-child(17), td:nth-child(18), td:nth-child(19), td:nth-child(20), td:nth-child(21), td:nth-child(22), td:nth-child(23), td:nth-child(24), td:nth-child(25) {
+            width: 4ch !important;
+            min-width: 4ch !important;
+            max-width: 4ch !important;
+            padding: 6px 2px !important;
         }
 
-        /* Efekt podświetlenia wiersza (musimy wymusić na komórkach td przez 'sticky') */
+        /* Bezpośrednie klasy dla najważniejszych danych */
+        .tabela-wynikow th.col-SUMA, .tabela-wynikow td:nth-last-child(2),
+        .tabela-wynikow th.col-Wynik, .tabela-wynikow td:nth-last-child(3),
+        .tabela-wynikow th.col-10x, .tabela-wynikow td:nth-last-child(1) {
+             width: auto !important;
+             min-width: 7ch !important;
+             max-width: none !important;
+        }
+
+        .tabela-wynikow th.col-SUMA, .tabela-wynikow th.col-Wynik,
+        .tabela-wynikow td:nth-last-child(2), .tabela-wynikow td:nth-last-child(3) {
+            font-weight: 800 !important;
+            background-color: #f1f5f9; 
+            color: #0f172a !important;
+        }
+
         .tabela-wynikow tr:hover td { 
             background-color: #f8fafc !important; 
         }
+        .tabela-wynikow tr:hover td:nth-child(2),
+        .tabela-wynikow tr:hover td:nth-last-child(2),
+        .tabela-wynikow tr:hover td:nth-last-child(3) {
+            background-color: #f1f5f9 !important;
+        }
 
-        /* --- WYRÓŻNIENIE PODIUM (Tylko czyste pogrubienie) --- */
         .tabela-wynikow tr:nth-child(1) td,
         .tabela-wynikow tr:nth-child(2) td,
         .tabela-wynikow tr:nth-child(3) td { 
@@ -141,7 +149,7 @@
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:15:47</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:26:24</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
@@ -149,27 +157,27 @@
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I seria</th>
-      <th>II seria</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>14</th>
-      <th>15</th>
-      <th>16</th>
-      <th>17</th>
-      <th>18</th>
-      <th>19</th>
-      <th>20</th>
-      <th>21</th>
-      <th>22</th>
-      <th>23</th>
-      <th>24</th>
-      <th>SO</th>
-      <th>SUMA</th>
+      <th class="col-Msc" data-col="Msc">Msc</th>
+      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
+      <th class="col-Klub" data-col="Klub">Klub</th>
+      <th class="col-I_seria" data-col="I seria">I seria</th>
+      <th class="col-II_seria" data-col="II seria">II seria</th>
+      <th class="col-11" data-col="11">11</th>
+      <th class="col-12" data-col="12">12</th>
+      <th class="col-13" data-col="13">13</th>
+      <th class="col-14" data-col="14">14</th>
+      <th class="col-15" data-col="15">15</th>
+      <th class="col-16" data-col="16">16</th>
+      <th class="col-17" data-col="17">17</th>
+      <th class="col-18" data-col="18">18</th>
+      <th class="col-19" data-col="19">19</th>
+      <th class="col-20" data-col="20">20</th>
+      <th class="col-21" data-col="21">21</th>
+      <th class="col-22" data-col="22">22</th>
+      <th class="col-23" data-col="23">23</th>
+      <th class="col-24" data-col="24">24</th>
+      <th class="col-SO" data-col="SO">SO</th>
+      <th class="col-SUMA" data-col="SUMA">SUMA</th>
     </tr>
   </thead>
   <tbody>
@@ -299,14 +307,14 @@
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I</th>
-      <th>II</th>
-      <th>III</th>
-      <th>IV</th>
-      <th>Wynik</th>
+      <th class="col-Msc" data-col="Msc">Msc</th>
+      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
+      <th class="col-Klub" data-col="Klub">Klub</th>
+      <th class="col-I" data-col="I">I</th>
+      <th class="col-II" data-col="II">II</th>
+      <th class="col-III" data-col="III">III</th>
+      <th class="col-IV" data-col="IV">IV</th>
+      <th class="col-Wynik" data-col="Wynik">Wynik</th>
     </tr>
   </thead>
   <tbody>
@@ -366,54 +374,32 @@
                 </div>
                 
                 <div class="sekcja-grupy">
-                    <h2>🏆 10m Karabin pneumatyczny 40 Młodzik - KPN40 Młodzik</h2>
+                    <h2>🏆 10m Pistolet pneumatyczny Open - Finał</h2>
                     <div class="tabela-kontener" data-scroll-id="tabela-3">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I</th>
-      <th>II</th>
-      <th>III</th>
-      <th>IV</th>
-      <th>Wynik</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-                    </div>
-                </div>
-                
-                <div class="sekcja-grupy">
-                    <h2>🏆 10m Pistolet pneumatyczny Open - Finał</h2>
-                    <div class="tabela-kontener" data-scroll-id="tabela-4">
-                        <table border="1" class="dataframe tabela-wynikow">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I seria</th>
-      <th>II seria</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>14</th>
-      <th>15</th>
-      <th>16</th>
-      <th>17</th>
-      <th>18</th>
-      <th>19</th>
-      <th>20</th>
-      <th>21</th>
-      <th>22</th>
-      <th>23</th>
-      <th>24</th>
-      <th>SO</th>
-      <th>SUMA</th>
+      <th class="col-Msc" data-col="Msc">Msc</th>
+      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
+      <th class="col-Klub" data-col="Klub">Klub</th>
+      <th class="col-I_seria" data-col="I seria">I seria</th>
+      <th class="col-II_seria" data-col="II seria">II seria</th>
+      <th class="col-11" data-col="11">11</th>
+      <th class="col-12" data-col="12">12</th>
+      <th class="col-13" data-col="13">13</th>
+      <th class="col-14" data-col="14">14</th>
+      <th class="col-15" data-col="15">15</th>
+      <th class="col-16" data-col="16">16</th>
+      <th class="col-17" data-col="17">17</th>
+      <th class="col-18" data-col="18">18</th>
+      <th class="col-19" data-col="19">19</th>
+      <th class="col-20" data-col="20">20</th>
+      <th class="col-21" data-col="21">21</th>
+      <th class="col-22" data-col="22">22</th>
+      <th class="col-23" data-col="23">23</th>
+      <th class="col-24" data-col="24">24</th>
+      <th class="col-SO" data-col="SO">SO</th>
+      <th class="col-SUMA" data-col="SUMA">SUMA</th>
     </tr>
   </thead>
   <tbody>
@@ -608,19 +594,19 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
-                    <div class="tabela-kontener" data-scroll-id="tabela-5">
+                    <div class="tabela-kontener" data-scroll-id="tabela-4">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I</th>
-      <th>II</th>
-      <th>III</th>
-      <th>IV</th>
-      <th>Wynik</th>
-      <th>10x</th>
+      <th class="col-Msc" data-col="Msc">Msc</th>
+      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
+      <th class="col-Klub" data-col="Klub">Klub</th>
+      <th class="col-I" data-col="I">I</th>
+      <th class="col-II" data-col="II">II</th>
+      <th class="col-III" data-col="III">III</th>
+      <th class="col-IV" data-col="IV">IV</th>
+      <th class="col-Wynik" data-col="Wynik">Wynik</th>
+      <th class="col-10x" data-col="10x">10x</th>
     </tr>
   </thead>
   <tbody>
@@ -796,19 +782,19 @@
                 
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
-                    <div class="tabela-kontener" data-scroll-id="tabela-6">
+                    <div class="tabela-kontener" data-scroll-id="tabela-5">
                         <table border="1" class="dataframe tabela-wynikow">
   <thead>
     <tr style="text-align: right;">
-      <th>Msc</th>
-      <th>NAZWISKO Imię</th>
-      <th>Klub</th>
-      <th>I</th>
-      <th>II</th>
-      <th>III</th>
-      <th>IV</th>
-      <th>Wynik</th>
-      <th>10x</th>
+      <th class="col-Msc" data-col="Msc">Msc</th>
+      <th class="col-NAZWISKO_Imię" data-col="NAZWISKO Imię">NAZWISKO Imię</th>
+      <th class="col-Klub" data-col="Klub">Klub</th>
+      <th class="col-I" data-col="I">I</th>
+      <th class="col-II" data-col="II">II</th>
+      <th class="col-III" data-col="III">III</th>
+      <th class="col-IV" data-col="IV">IV</th>
+      <th class="col-Wynik" data-col="Wynik">Wynik</th>
+      <th class="col-10x" data-col="10x">10x</th>
     </tr>
   </thead>
   <tbody>

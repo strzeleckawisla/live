@@ -12,6 +12,7 @@
             --text-muted: #64748b;
             --accent-color: #0284c7; 
             --border-color: #e2e8f0;
+            --th-bg: #f1f5f9;
         }
         body { 
             font-family: 'Segoe UI', -apple-system, sans-serif; 
@@ -48,6 +49,7 @@
         .tabela-kontener { 
             width: 100%; 
             overflow-x: auto; 
+            position: relative;
         }
         h2 { 
             color: var(--accent-color); 
@@ -57,17 +59,17 @@
             font-size: 1.25rem;
         }
 
-        /* --- ODCHUDZANIE TABELI (Mniejsza czcionka i ciasny rozstaw) --- */
         .tabela-wynikow { 
             width: 100%; 
-            border-collapse: collapse; 
+            border-collapse: separate; /* Zmienione z collapse, aby sticky border działało prawidłowo */
+            border-spacing: 0;
             white-space: nowrap; 
-            font-size: 0.85rem; /* Zmniejszona ogólna wielkość tekstu */
+            font-size: 0.85rem; 
         }
         .tabela-wynikow th { 
-            background-color: #f1f5f9; 
+            background-color: var(--th-bg); 
             color: #334155; 
-            padding: 8px 10px; /* Ciasny padding */
+            padding: 8px 10px; 
             text-transform: uppercase; 
             font-size: 0.75rem; 
             font-weight: 700;
@@ -75,41 +77,71 @@
             text-align: center; 
         }
         .tabela-wynikow td { 
-            padding: 6px 10px; /* Bardzo zwarta wysokość wiersza */
+            padding: 6px 10px; 
             border-bottom: 1px solid var(--border-color); 
             color: #334155;
             text-align: center; 
+            background-color: var(--card-bg); /* Wymagane tło dla poprawnego zakrywania przy sticky */
         }
 
-        /* Wyrównanie dla tekstu */
-        .tabela-wynikow th:nth-child(2), .tabela-wynikow td:nth-child(2),
+        /* --- ZAMRAŻANIE KOLUMN (Msc oraz NAZWISKO Imię) --- */
+        /* Kolumna 1: Miejsce (Msc) */
+        .tabela-wynikow th:nth-child(1), 
+        .tabela-wynikow td:nth-child(1) {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+        }
+        /* Kolumna 2: Nazwisko i Imię */
+        .tabela-wynikow th:nth-child(2), 
+        .tabela-wynikow td:nth-child(2) {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 45px; /* Szerokość pierwszej kolumny Msc, żeby się nie nakładały */
+            z-index: 2;
+            text-align: left;
+            box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); /* Subtelny cień odcinający nazwisko od wyników */
+        }
+
+        /* Nagłówki zamrożone muszą mieć wyższy priorytet i kolor tła th */
+        .tabela-wynikow th:nth-child(1), .tabela-wynikow th:nth-child(2) {
+            background-color: var(--th-bg);
+            z-index: 3;
+        }
+
+        /* Kolumna 3: Klub (Wyrównanie do lewej, ale nie jest zamrożona) */
         .tabela-wynikow th:nth-child(3), .tabela-wynikow td:nth-child(3) { 
             text-align: left; 
         }
 
-        /* --- AUTOMATYCZNE ZWĘŻANIE KOLUMN LICZBOWYCH --- */
-        /* Jeśli nagłówek nie jest Nazwiskiem ani Klubem, ma być możliwie najwęższy */
+        /* --- MAKSYMALNE ZWĘŻENIE KOLUMN LICZBOWYCH --- */
+        /* Dotyczy wszystkich kolumn z wynikami serii, strzałów 11-24, SO, sum itd. */
         .tabela-wynikow th:not(:nth-child(2)):not(:nth-child(3)), 
         .tabela-wynikow td:not(:nth-child(2)):not(:nth-child(3)) {
-            width: 35px;
-            min-width: 35px;
-            max-width: 60px;
+            width: 4ch;
+            min-width: 4ch;
+            max-width: 5ch;
+            padding: 6px 4px; /* Węższy boczny margines wewnątrz komórek liczbowych */
         }
 
-        .tabela-wynikow tr:hover td { background-color: #f8fafc; }
+        /* Efekt podświetlenia wiersza (musimy wymusić na komórkach td przez 'sticky') */
+        .tabela-wynikow tr:hover td { 
+            background-color: #f8fafc !important; 
+        }
 
         /* --- WYRÓŻNIENIE PODIUM (Tylko czyste pogrubienie) --- */
         .tabela-wynikow tr:nth-child(1) td,
         .tabela-wynikow tr:nth-child(2) td,
         .tabela-wynikow tr:nth-child(3) td { 
             font-weight: bold; 
-            color: #0f172a; /* Lekko ciemniejszy, wyraźniejszy kolor tekstu dla podium */
+            color: #0f172a;
         }
     </style>
 </head>
 <body>
     <h1>TABELA WYNIKÓW</h1>
-    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:08:39</span> (Wyniki aktualizują się płynnie w tle)</div>
+    <div class="odswiezanie">Ostatnia aktualizacja danych: <span id="time-hook">20:15:47</span> (Wyniki aktualizują się płynnie w tle)</div>
     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2>🏆 10m Karabin pneumatyczny Open - Finał</h2>
@@ -917,7 +949,6 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlText, "text/html");
 
-                // --- KROK 1: ZAPAMIĘTUJEMY POZYCJE SCROLLA DLA KAŻDEJ TABELI ---
                 const scrollPositions = {};
                 document.querySelectorAll('.tabela-kontener').forEach(el => {
                     const id = el.getAttribute('data-scroll-id');
@@ -926,14 +957,12 @@
                     }
                 });
 
-                // KROK 2: PODMIENIAMY TREŚĆ
                 const newContent = doc.getElementById("live-content").innerHTML;
                 const newTime = doc.getElementById("time-hook").innerHTML;
 
                 document.getElementById("live-content").innerHTML = newContent;
                 document.getElementById("time-hook").innerHTML = newTime;
 
-                // --- KROK 3: NATYCHMIAST PRZYWRACAMY SCROLLA DLA KAŻDEJ NOWEJ TABELI ---
                 document.querySelectorAll('.tabela-kontener').forEach(el => {
                     const id = el.getAttribute('data-scroll-id');
                     if (id && scrollPositions[id] !== undefined) {

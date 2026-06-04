@@ -9,20 +9,17 @@
             body { font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
 
             .naglowek-glowny {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+                text-align: center;
                 width: 100%;
                 max-width: 1400px;
                 margin-bottom: 5px;
                 padding: 10px 0;
+                border-bottom: 1px solid var(--border-color);
             }
-            .logo-naglowka { height: 75px; width: auto; object-fit: contain; }
-            .tytul-wrapper { text-align: center; flex-grow: 1; }
 
             h1 { color: #0f172a; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0; font-size: 1.8rem;}
-            .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; font-weight: 500;}
-            .kontener { width: 100%; max-width: 1400px; }
+            .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;}
+            .kontener { width: 100%; max-width: 1400px; margin-top: 15px; }
             .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 45px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); min-height: 150px; position: relative; }
             .tabela-kontener { width: 100%; overflow-x: auto; position: relative;}
             h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; margin-top: 0; font-size: 1.25rem;}
@@ -44,13 +41,11 @@
         </style>
     </head>
     <body>
+        <div id="status-scrolla" data-aktywny="false" style="display:none;"></div>
+
         <div class="naglowek-glowny">
-            <img src="logo_lewe.png" alt="Logo" class="logo-naglowka">
-            <div class="tytul-wrapper">
-                <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:39:26</span> (Wyniki Online)</div>
-            </div>
-            <img src="logo_prawe.png" alt="Logo" class="logo-naglowka">
+            <h1>TABELA WYNIKÓW ZAWODÓW</h1>
+            <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:42:56</span> (Wyniki Online)</div>
         </div>
         <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">

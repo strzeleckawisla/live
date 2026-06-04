@@ -55,7 +55,7 @@
             <img src="logo_lewe.png" alt="Logo" class="logo-naglowka">
             <div class="tytul-wrapper">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">15:44:10</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">15:47:55</span> (Wyniki Online)</div>
             </div>
             <img src="logo_prawe.png" alt="Logo" class="logo-naglowka">
         </div>
@@ -71,26 +71,5 @@
                     <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Open - PPN40 Open"></div>
                 </div></div>
         
-                    <script>
-                        async function fetchUpdates() {
-                            try {
-                                const response = await fetch(window.location.href + "?t=" + new Date().getTime(), { cache: "no-store" });
-                                if (!response.ok) return;
-                                const htmlText = await response.text();
-                                const parser = new DOMParser();
-                                const doc = parser.parseFromString(htmlText, "text/html");
-                                if(doc.getElementById("live-content") && doc.getElementById("time-hook")) {
-                                    document.getElementById("live-content").innerHTML = doc.getElementById("live-content").innerHTML;
-                                    document.getElementById("time-hook").innerHTML = doc.getElementById("time-hook").innerHTML;
-                                }
-                            } catch (e) { 
-                                // Zabezpieczenie dla otwierania pliku lokalnie bez serwera
-                                if (location.protocol === 'file:') {
-                                    location.reload();
-                                }}
-                        }
-                        setInterval(fetchUpdates, 4000);
-                    </script>
-                    
     </body>
     </html>

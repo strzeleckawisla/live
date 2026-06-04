@@ -2,50 +2,21 @@
     <html lang="pl">
     <head>
         <meta charset="UTF-8">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Wyniki Zawodów na Żywo</title>
         <style>
             :root { --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #1e293b; --text-muted: #64748b; --accent-color: #0284c7; --border-color: #e2e8f0; --th-bg: #f1f5f9; }
+            body { font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
 
-            html, body { 
-                margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; 
-                font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color);
-            }
-
-            .ekran-tv { display: flex; flex-direction: column; height: 100vh; width: 100%; padding: 15px; box-sizing: border-box; }
-
-            .naglowek-glowny {
-                text-align: center;
-                width: 100%;
-                margin-bottom: 10px;
-                padding: 5px 0;
-                border-bottom: 1px solid var(--border-color);
-                background-color: var(--bg-color);
-                z-index: 10;
-            }
-
+            .naglowek-glowny { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1400px; margin-bottom: 5px; padding: 10px 0; }
+            .tytul-wrapper { text-align: center; flex-grow: 1; }
             h1 { color: #0f172a; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0; font-size: 1.8rem;}
-            .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;}
+            .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; font-weight: 500;}
 
-            /* OKNO WIDOKOWE: Dla trybu auto blokuje scroll, dla ręcznego pozwala przewijać */
-            #scena-tv {
-                flex-grow: 1;
-                width: 100%;
-                overflow: auto;
-                position: relative;
-            }
-
-            #scroller-wrapper {
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                will-change: transform;
-            }
-
-            .kontener { width: 100%; max-width: 1400px; margin: 0 auto; }
-            .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 45px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); min-height: 150px; }
-            .tabela-kontener { width: 100%; overflow-x: auto; }
+            .kontener { width: 100%; max-width: 1400px; }
+            .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 45px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); min-height: 150px; position: relative; }
+            .tabela-kontener { width: 100%; overflow-x: auto; position: relative;}
             h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; margin-top: 0; font-size: 1.25rem;}
             .tabela-wynikow { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
             .tabela-wynikow th { background-color: var(--th-bg); color: #334155; padding: 8px 10px; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--border-color); text-align: center; white-space: nowrap;}
@@ -53,26 +24,19 @@
 
             .tabela-wynikow .col-NAZWISKO_Imię { position: -webkit-sticky; position: sticky; left: 0; z-index: 2; text-align: left !important; background-color: var(--card-bg); box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); font-size: 1.2rem !important; white-space: normal !important; width: 15ch !important; min-width: 13ch !important; max-width: 16ch !important; line-height: 1.1; }
             th.col-NAZWISKO_Imię { background-color: var(--th-bg) !important; z-index: 3; white-space: nowrap !important; }
-            .tabela-wynikow .col-Klub { text-align: left !important; white-space: nowrap;}
-            .tabela-wynikow .col-I_seria, .tabela-wynikow .col-II_seria { width: auto !important; padding-left: 4px !important; padding-right: 4px !important; white-space: nowrap;}
-            .tabela-wynikow .col-11, .tabela-wynikow .col-12, .tabela-wynikow .col-13, .tabela-wynikow .col-14, .tabela-wynikow .col-15, .tabela-wynikow .col-16, .tabela-wynikow .col-17, .tabela-wynikow .col-18, .tabela-wynikow .col-19, .tabela-wynikow .col-20, .tabela-wynikow .col-21, .tabela-wynikow .col-22, .tabela-wynikow .col-23, .tabela-wynikow .col-24, .tabela-wynikow .col-SO { width: 4ch !important; min-width: 4ch !important; max-width: 4ch !important; padding: 6px 2px !important; white-space: nowrap;}
-            .tabela-wynikow .col-SUMA, .tabela-wynikow .col-Wynik { width: 7ch !important; min-width: 7ch !important; max-width: 8ch !important; font-size: 1.2rem !important; white-space: nowrap;}
-            .tabela-wynikow .col-10x { width: 6ch !important; min-width: 6ch !important; max-width: 6ch !important; white-space: nowrap;}
-            .tabela-wynikow tr:hover td { background-color: #f8fafc !important; }
-            .tabela-wynikow tr:hover td.col-NAZWISKO_Imię { background-color: #f8fafc !important;}
+
             .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important;}
+            .znacznik-dna { width: 100%; height: 2px; background: transparent; position: absolute; bottom: 0; left: 0; pointer-events: none; }
         </style>
     </head>
     <body>
-        <div class="ekran-tv">
-            <div class="naglowek-glowny">
+        <div class="naglowek-glowny">
+            <div class="tytul-wrapper">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:58:23</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">17:10:41</span> (Wyniki Online)</div>
             </div>
-
-            <div id="scena-tv">
-                <div id="scroller-wrapper" data-scroll="false">
-                    <div id="live-content" class="kontener">
+        </div>
+        <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2 class="naglowek-tabeli" data-nazwa="10m Pistolet pneumatyczny 40 Open - PPN40 Open">🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
                     <div class="tabela-kontener">
@@ -82,37 +46,7 @@
                         </table>
                     </div>
                     <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Open - PPN40 Open"></div>
-                </div>
-                <div class="sekcja-grupy">
-                    <h2 class="naglowek-tabeli" data-nazwa="10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik">🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
-                    <div class="tabela-kontener">
-                        <table class="tabela-wynikow">
-                            <thead><tr><th class="col-Msc">Msc</th><th class="col-NAZWISKO_Imię">NAZWISKO Imię</th><th class="col-Klub">Klub</th><th class="col-I">I</th><th class="col-II">II</th><th class="col-III">III</th><th class="col-IV">IV</th><th class="col-Wynik">Wynik</th><th class="col-10x">10x</th></tr></thead>
-                            <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">ŚWIERCZYŃSKI Filip</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">84</td><td class="col-II">92</td><td class="col-III">87</td><td class="col-IV">92</td><td class="col-Wynik">355</td><td class="col-10x">3</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">UZAR Róża</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I">87</td><td class="col-II">91</td><td class="col-III">94</td><td class="col-IV">80</td><td class="col-Wynik">352</td><td class="col-10x">3</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">CHERVINSKA Anastazja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">90</td><td class="col-II">76</td><td class="col-III">93</td><td class="col-IV">87</td><td class="col-Wynik">346</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">MIKULEC Alicja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">84</td><td class="col-II">83</td><td class="col-III">85</td><td class="col-IV">85</td><td class="col-Wynik">337</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">WŁODARCZYK Karolina</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">79</td><td class="col-II">85</td><td class="col-III">83</td><td class="col-IV">82</td><td class="col-Wynik">329</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">KALUS Blanka</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">70</td><td class="col-II">78</td><td class="col-III">72</td><td class="col-IV">73</td><td class="col-Wynik">293</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">7</td><td class="col-NAZWISKO_Imię">TOPKA Oliwia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">66</td><td class="col-II">82</td><td class="col-III">67</td><td class="col-IV">78</td><td class="col-Wynik">293</td><td class="col-10x"></td></tr><tr><td class="col-Msc">8</td><td class="col-NAZWISKO_Imię">SOJKA Karol</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">67</td><td class="col-II">53</td><td class="col-III">59</td><td class="col-IV">68</td><td class="col-Wynik">247</td><td class="col-10x">2</td></tr><tr><td class="col-Msc"></td><td class="col-NAZWISKO_Imię">MARZEC Julia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x"></td></tr><tr><td class="col-Msc"></td><td class="col-NAZWISKO_Imię">RYNDUCH Julia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x"></td></tr></tbody>
-                        </table>
-                    </div>
-                    <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik"></div>
                 </div></div>
-                </div>
-            </div>
-        </div>
         
-                <script>
-                    async function fetchUpdates() {
-                        try {
-                            const response = await fetch(window.location.href + "?t=" + new Date().getTime(), { cache: "no-store" });
-                            if (!response.ok) return;
-                            const htmlText = await response.text();
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(htmlText, "text/html");
-                            if(doc.getElementById("live-content") && doc.getElementById("time-hook")) {
-                                document.getElementById("live-content").innerHTML = doc.getElementById("live-content").innerHTML;
-                                document.getElementById("time-hook").innerHTML = doc.getElementById("time-hook").innerHTML;
-                            }
-                        } catch (e) { if (location.protocol === 'file:') { location.reload(); } }
-                    }
-                    setInterval(fetchUpdates, 4000);
-                </script>
-                
     </body>
     </html>

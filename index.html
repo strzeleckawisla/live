@@ -7,9 +7,9 @@
         <style>
             :root { --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #1e293b; --text-muted: #64748b; --accent-color: #0284c7; --border-color: #e2e8f0; --th-bg: #f1f5f9; }
 
-            /* Blokujemy domyślny scroll przeglądarki, który powodował konflikt */
+            /* DYNAMICZNY STAN OVERFLOW: hidden dla TV-Auto, auto dla ręcznego przewijania */
             html, body { 
-                margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; 
+                margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; 
                 font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color);
             }
 
@@ -28,15 +28,13 @@
             h1 { color: #0f172a; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0; font-size: 1.8rem;}
             .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;}
 
-            /* OKNO WIDOKOWE: Stała wysokość na ekranie, reszta ukryta */
             .scena-tv {
                 flex-grow: 1;
                 width: 100%;
-                overflow: hidden;
+                overflow: auto;
                 position: relative;
             }
 
-            /* Kontener, który przesuwamy sprzętowo przez CSS bez dotykania paska przewijania strony */
             .kontener-marquee {
                 width: 100%;
                 position: absolute;
@@ -71,7 +69,7 @@
         <div class="ekran-tv">
             <div class="naglowek-glowny">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:48:16</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:50:27</span> (Wyniki Online)</div>
             </div>
 
             <div class="scena-tv">

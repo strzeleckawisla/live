@@ -7,9 +7,8 @@
         <style>
             :root { --bg-color: #f8fafc; --card-bg: #ffffff; --text-color: #1e293b; --text-muted: #64748b; --accent-color: #0284c7; --border-color: #e2e8f0; --th-bg: #f1f5f9; }
 
-            /* DYNAMICZNY STAN OVERFLOW: hidden dla TV-Auto, auto dla ręcznego przewijania */
             html, body { 
-                margin: 0; padding: 0; width: 100%; height: 100%; overflow: auto; 
+                margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; 
                 font-family: 'Segoe UI', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--text-color);
             }
 
@@ -28,22 +27,21 @@
             h1 { color: #0f172a; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0; font-size: 1.8rem;}
             .odswiezanie { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px; font-weight: 500;}
 
-            .scena-tv {
+            /* OKNO WIDOKOWE: Dla trybu auto blokuje scroll, dla ręcznego pozwala przewijać */
+            #scena-tv {
                 flex-grow: 1;
                 width: 100%;
                 overflow: auto;
                 position: relative;
             }
 
-            .kontener-marquee {
+            #scroller-wrapper {
                 width: 100%;
                 position: absolute;
                 top: 0;
                 left: 0;
                 will-change: transform;
             }
-
-            
 
             .kontener { width: 100%; max-width: 1400px; margin: 0 auto; }
             .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 45px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); min-height: 150px; }
@@ -69,11 +67,11 @@
         <div class="ekran-tv">
             <div class="naglowek-glowny">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:51:54</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">16:56:44</span> (Wyniki Online)</div>
             </div>
 
-            <div class="scena-tv">
-                <div id="scroller-wrapper" class="">
+            <div id="scena-tv">
+                <div id="scroller-wrapper" data-scroll="false">
                     <div id="live-content" class="kontener">
                 <div class="sekcja-grupy">
                     <h2 class="naglowek-tabeli" data-nazwa="10m Pistolet pneumatyczny 40 Open - PPN40 Open">🏆 10m Pistolet pneumatyczny 40 Open - PPN40 Open</h2>
@@ -84,16 +82,6 @@
                         </table>
                     </div>
                     <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Open - PPN40 Open"></div>
-                </div>
-                <div class="sekcja-grupy">
-                    <h2 class="naglowek-tabeli" data-nazwa="10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik">🏆 10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik</h2>
-                    <div class="tabela-kontener">
-                        <table class="tabela-wynikow">
-                            <thead><tr><th class="col-Msc">Msc</th><th class="col-NAZWISKO_Imię">NAZWISKO Imię</th><th class="col-Klub">Klub</th><th class="col-I">I</th><th class="col-II">II</th><th class="col-III">III</th><th class="col-IV">IV</th><th class="col-Wynik">Wynik</th><th class="col-10x">10x</th></tr></thead>
-                            <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">CHERVINSKA Anastazja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">90</td><td class="col-II">76</td><td class="col-III">93</td><td class="col-IV">87</td><td class="col-Wynik">346</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">MIKULEC Alicja</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">84</td><td class="col-II">83</td><td class="col-III">85</td><td class="col-IV">85</td><td class="col-Wynik">337</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">WŁODARCZYK Karolina</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">79</td><td class="col-II">85</td><td class="col-III">83</td><td class="col-IV">82</td><td class="col-Wynik">329</td><td class="col-10x">1</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">KALUS Blanka</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">70</td><td class="col-II">78</td><td class="col-III">72</td><td class="col-IV">73</td><td class="col-Wynik">293</td><td class="col-10x">2</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">TOPKA Oliwia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I">66</td><td class="col-II">82</td><td class="col-III">67</td><td class="col-IV">78</td><td class="col-Wynik">293</td><td class="col-10x"></td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">SOJKA Karol</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x">2</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">ŚWIERCZYŃSKI Filip</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x">3</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">UZAR Róża</td><td class="col-Klub">KS ZO LOK Kraków</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x">3</td></tr><tr><td class="col-Msc"></td><td class="col-NAZWISKO_Imię">MARZEC Julia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x"></td></tr><tr><td class="col-Msc"></td><td class="col-NAZWISKO_Imię">RYNDUCH Julia</td><td class="col-Klub">MŁODY STRZELEC Bochnia</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td><td class="col-10x"></td></tr></tbody>
-                        </table>
-                    </div>
-                    <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik"></div>
                 </div></div>
                 </div>
             </div>

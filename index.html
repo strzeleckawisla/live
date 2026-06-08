@@ -2,7 +2,6 @@
     <html lang="pl">
     <head>
         <meta charset="UTF-8">
-        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Wyniki Zawodów na Żywo</title>
         <style>
@@ -27,13 +26,60 @@
 
             .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important;}
             .znacznik-dna { width: 100%; height: 2px; background: transparent; position: absolute; bottom: 0; left: 0; pointer-events: none; }
+
+            /* =========================================================================
+               POMNIEJSZAJĄCA MASKA CSS DLA SMARTFONÓW (Ekran poniżej 768px szerokości)
+               ========================================================================= */
+            @media screen and (max-width: 768px) {
+                body {
+                    padding: 4px !important;
+                }
+                .naglowek-glowny {
+                    margin-bottom: 2px !important;
+                    padding: 4px 0 !important;
+                }
+                h1 {
+                    font-size: 1.2rem !important;
+                }
+                .odswiezanie {
+                    font-size: 0.7rem !important;
+                    margin-bottom: 8px !important;
+                }
+                .sekcja-grupy {
+                    padding: 6px !important;
+                    margin-bottom: 15px !important;
+                    border-radius: 6px !important;
+                }
+                h2 {
+                    font-size: 0.95rem !important;
+                    padding-bottom: 4px !important;
+                    margin-bottom: 6px !important;
+                }
+                .tabela-wynikow {
+                    font-size: 0.68rem !important; /* Odczuwalne zmniejszenie tekstu w tabeli */
+                }
+                .tabela-wynikow th {
+                    padding: 4px 3px !important;
+                    font-size: 0.6rem !important;
+                }
+                .tabela-wynikow td {
+                    padding: 4px 3px !important; /* Maksymalne zwężenie komórek */
+                }
+                /* Zmniejszenie doklejonej na stałe kolumny z Nazwiskiem, żeby nie pożerała ekranu */
+                .tabela-wynikow .col-NAZWISKO_Imię {
+                    font-size: 0.75rem !important; 
+                    width: 11ch !important;
+                    min-width: 10ch !important;
+                    max-width: 12ch !important;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="naglowek-glowny">
             <div class="tytul-wrapper">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">14:56:49</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">14:58:07</span> (Wyniki Online)</div>
             </div>
         </div>
         <div id="live-content" class="kontener">

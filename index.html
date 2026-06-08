@@ -24,54 +24,23 @@
             .tabela-wynikow .col-NAZWISKO_Imię { position: -webkit-sticky; position: sticky; left: 0; z-index: 2; text-align: left !important; background-color: var(--card-bg); box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15); font-size: 1.2rem !important; white-space: normal !important; width: 15ch !important; min-width: 13ch !important; max-width: 16ch !important; line-height: 1.1; }
             th.col-NAZWISKO_Imię { background-color: var(--th-bg) !important; z-index: 3; white-space: nowrap !important; }
 
+            /* NAPRAWA 2: Wyrównanie kolumny KLUB do lewej krawędzi */
+            .tabela-wynikow .col-KLUB, .tabela-wynikow .col-Klub { text-align: left !important; }
+
             .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important;}
             .znacznik-dna { width: 100%; height: 2px; background: transparent; position: absolute; bottom: 0; left: 0; pointer-events: none; }
 
-            /* =========================================================================
-               POMNIEJSZAJĄCA MASKA CSS DLA SMARTFONÓW (Ekran poniżej 768px szerokości)
-               ========================================================================= */
             @media screen and (max-width: 768px) {
-                body {
-                    padding: 4px !important;
-                }
-                .naglowek-glowny {
-                    margin-bottom: 2px !important;
-                    padding: 4px 0 !important;
-                }
-                h1 {
-                    font-size: 1.2rem !important;
-                }
-                .odswiezanie {
-                    font-size: 0.7rem !important;
-                    margin-bottom: 8px !important;
-                }
-                .sekcja-grupy {
-                    padding: 6px !important;
-                    margin-bottom: 15px !important;
-                    border-radius: 6px !important;
-                }
-                h2 {
-                    font-size: 0.95rem !important;
-                    padding-bottom: 4px !important;
-                    margin-bottom: 6px !important;
-                }
-                .tabela-wynikow {
-                    font-size: 0.68rem !important; /* Odczuwalne zmniejszenie tekstu w tabeli */
-                }
-                .tabela-wynikow th {
-                    padding: 4px 3px !important;
-                    font-size: 0.6rem !important;
-                }
-                .tabela-wynikow td {
-                    padding: 4px 3px !important; /* Maksymalne zwężenie komórek */
-                }
-                /* Zmniejszenie doklejonej na stałe kolumny z Nazwiskiem, żeby nie pożerała ekranu */
-                .tabela-wynikow .col-NAZWISKO_Imię {
-                    font-size: 0.75rem !important; 
-                    width: 11ch !important;
-                    min-width: 10ch !important;
-                    max-width: 12ch !important;
-                }
+                body { padding: 4px !important; }
+                .naglowek-glowny { margin-bottom: 2px !important; padding: 4px 0 !important; }
+                h1 { font-size: 1.2rem !important; }
+                .odswiezanie { font-size: 0.7rem !important; margin-bottom: 8px !important; }
+                .sekcja-grupy { padding: 6px !important; margin-bottom: 15px !important; border-radius: 6px !important; }
+                h2 { font-size: 0.95rem !important; padding-bottom: 4px !important; margin-bottom: 6px !important; }
+                .tabela-wynikow { font-size: 0.68rem !important; }
+                .tabela-wynikow th { padding: 4px 3px !important; font-size: 0.6rem !important; }
+                .tabela-wynikow td { padding: 4px 3px !important; }
+                .tabela-wynikow .col-NAZWISKO_Imię { font-size: 0.75rem !important; width: 11ch !important; min-width: 10ch !important; max-width: 12ch !important; }
             }
         </style>
     </head>
@@ -79,7 +48,7 @@
         <div class="naglowek-glowny">
             <div class="tytul-wrapper">
                 <h1>TABELA WYNIKÓW ZAWODÓW</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">15:23:19</span> (Wyniki Online)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">15:25:40</span> (Wyniki Online)</div>
             </div>
         </div>
         <div id="live-content" class="kontener">
@@ -102,16 +71,6 @@
                         </table>
                     </div>
                     <div class="znacznik-dna" data-nazwa="10m Pistolet pneumatyczny 40 Młodzik - PPN40 Młodzik"></div>
-                </div>
-                <div class="sekcja-grupy">
-                    <h2 class="naglowek-tabeli" data-nazwa="10m Karabin pneumatyczny 40 Open - KPN40 Open">🏆 10m Karabin pneumatyczny 40 Open - KPN40 Open</h2>
-                    <div class="tabela-kontener">
-                        <table class="tabela-wynikow">
-                            <thead><tr><th class="col-Msc">Msc</th><th class="col-NAZWISKO_Imię">NAZWISKO Imię</th><th class="col-Klub">Klub</th><th class="col-I">I</th><th class="col-II">II</th><th class="col-III">III</th><th class="col-IV">IV</th><th class="col-Wynik">Wynik</th></tr></thead>
-                            <tbody><tr><td class="col-Msc">1</td><td class="col-NAZWISKO_Imię">MRUGAŁA Daria</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I">97.4</td><td class="col-II">100.8</td><td class="col-III">99.7</td><td class="col-IV">100.8</td><td class="col-Wynik">398.7</td></tr><tr><td class="col-Msc">2</td><td class="col-NAZWISKO_Imię">GRUBKA Piotr</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">98.1</td><td class="col-II">97.4</td><td class="col-III">100.8</td><td class="col-IV">99.7</td><td class="col-Wynik">396.0</td></tr><tr><td class="col-Msc">3</td><td class="col-NAZWISKO_Imię">MARCINKÓW Marcin</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I">98.1</td><td class="col-II">98.1</td><td class="col-III">97.4</td><td class="col-IV">100.8</td><td class="col-Wynik">394.4</td></tr><tr><td class="col-Msc">4</td><td class="col-NAZWISKO_Imię">ZHVANKO Tetiana</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">97.8</td><td class="col-II">89.5</td><td class="col-III">93.1</td><td class="col-IV">89.5</td><td class="col-Wynik">369.9</td></tr><tr><td class="col-Msc">5</td><td class="col-NAZWISKO_Imię">JAMIŃSKA Martyna</td><td class="col-Klub">SZAROTKA Nowy Targ</td><td class="col-I">86.9</td><td class="col-II">97.8</td><td class="col-III">89.5</td><td class="col-IV">93.1</td><td class="col-Wynik">367.3</td></tr><tr><td class="col-Msc">6</td><td class="col-NAZWISKO_Imię">SOBCZAK Antoni</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I">86.9</td><td class="col-II">86.9</td><td class="col-III">97.8</td><td class="col-IV">89.5</td><td class="col-Wynik">361.1</td></tr><tr><td class="col-Msc">DNS</td><td class="col-NAZWISKO_Imię">KOZERA Robert</td><td class="col-Klub">MSS Słomniki</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td></tr><tr><td class="col-Msc">DNS</td><td class="col-NAZWISKO_Imię">SYCHA Nadia</td><td class="col-Klub">WISŁA Kraków</td><td class="col-I"></td><td class="col-II"></td><td class="col-III"></td><td class="col-IV"></td><td class="col-Wynik"></td></tr></tbody>
-                        </table>
-                    </div>
-                    <div class="znacznik-dna" data-nazwa="10m Karabin pneumatyczny 40 Open - KPN40 Open"></div>
                 </div></div>
         
     </body>

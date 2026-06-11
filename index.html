@@ -6,6 +6,7 @@
         <meta http-equiv="refresh" content="30">
         <title>WISŁA livescore</title>
         <style>
+            
             :root {
                 --bg-color: #f8fafc;
                 --card-bg: #ffffff;
@@ -15,9 +16,13 @@
                 --border-color: #e2e8f0;
                 --th-bg: #f1f5f9;
             }
+            body { font-family: 'Segoe UI', sans-serif; font-size: 14px; }
+            .tabela-wynikow { font-size: 0.85rem; }
+            .tabela-wynikow .col-NAZWISKO_Imię { font-size: 1.2rem !important; }
+            .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important; }
+            
 
             body {
-                font-family: 'Segoe UI', -apple-system, sans-serif;
                 background-color: var(--bg-color);
                 color: var(--text-color);
                 margin: 0;
@@ -25,6 +30,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                transition: background-color 0.3s, color 0.3s;
             }
 
             .naglowek-glowny {
@@ -41,7 +47,7 @@
                 flex-grow: 1;
             }
             h1 {
-                color: #0f172a;
+                color: var(--text-color);
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 margin: 0 0 5px 0;
@@ -58,9 +64,9 @@
             .sekcja-grupy { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 45px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); min-height: 150px; }
             .tabela-kontener { width: 100%; overflow-x: auto; position: relative; }
             h2 { color: var(--accent-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; margin-top: 0; font-size: 1.25rem; }
-            .tabela-wynikow { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
-            .tabela-wynikow th { background-color: var(--th-bg); color: #334155; padding: 8px 10px; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; border-bottom: 2px solid var(--border-color); text-align: center; white-space: nowrap; }
-            .tabela-wynikow td { padding: 6px 10px; border-bottom: 1px solid var(--border-color); color: #334155; text-align: center; background-color: var(--card-bg); vertical-align: middle; }
+            .tabela-wynikow { width: 100%; border-collapse: separate; border-spacing: 0; }
+            .tabela-wynikow th { background-color: var(--th-bg); color: var(--text-color); padding: 8px 10px; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--border-color); text-align: center; white-space: nowrap; }
+            .tabela-wynikow td { padding: 6px 10px; border-bottom: 1px solid var(--border-color); color: var(--text-color); text-align: center; background-color: var(--card-bg); vertical-align: middle; }
 
             .tabela-wynikow .col-NAZWISKO_Imię {
                 position: -webkit-sticky;
@@ -70,7 +76,6 @@
                 text-align: left !important;
                 background-color: var(--card-bg);
                 box-shadow: 4px 0 6px -3px rgba(0,0,0,0.15);
-                font-size: 1.2rem !important;
                 white-space: normal !important;
                 width: 15ch !important;
                 min-width: 13ch !important;
@@ -79,7 +84,6 @@
             }
             th.col-NAZWISKO_Imię { background-color: var(--th-bg) !important; z-index: 3; white-space: nowrap !important; }
             .tabela-wynikow .col-KLUB, .tabela-wynikow .col-Klub { text-align: left !important; }
-            .tabela-wynikow tr:nth-child(1) td, .tabela-wynikow tr:nth-child(2) td, .tabela-wynikow tr:nth-child(3) td { font-weight: bold !important; color: #0f172a !important; }
 
             @media screen and (max-width: 768px) {
                 body { padding: 4px !important; }
@@ -98,8 +102,8 @@
     <body>
         <div class="naglowek-glowny">
             <div class="tytul-wrapper">
-                <h1>Sekcja Strzelecka TS WISŁA Kraków</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">11.06.2026 r. godz. 16:52:35</span> (Wyniki na żywo)</div>
+                <h1><h1>Sekcja Strzelecka TS WISŁA Kraków</h1></h1>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">11.06.2026 r. godz. 17:50:57</span> (Wyniki na żywo)</div>
             </div>
         </div>
         <div id="live-content" class="kontener">

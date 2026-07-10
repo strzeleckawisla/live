@@ -96,6 +96,11 @@
                 .tabela-wynikow th { padding: 4px 3px !important; font-size: 0.65rem !important; }
                 .tabela-wynikow td { padding: 4px 3px !important; }
               
+              /* --- TEST RATUNKOWY: CZY STYL W OGÓLE JEST CZYTANY? --- */
+            .tabela-wynikow th[class*="col-1"], 
+            .tabela-wynikow th[class*="col-2"] {
+                background-color: #ff0000 !important;
+            }
                     /* --- POPRAWKA: OPTYMALNA SZEROKOŚĆ DLA 4 ZNAKÓW (np. 10.9) --- */
                 .tabela-wynikow th[class*="col-1"], 
                 .tabela-wynikow th[class*="col-2"],
@@ -116,7 +121,7 @@
         <div class="naglowek-glowny">
             <div class="tytul-wrapper">
                 <h1>Sekcja Strzelecka TS WISŁA Kraków</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">10.07.2026 r. godz. 18:25:18</span> (Wyniki na żywo)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">10.07.2026 r. godz. 18:27:59</span> (Wyniki na żywo)</div>
             </div>
         </div>
         <div id="live-content" class="kontener">

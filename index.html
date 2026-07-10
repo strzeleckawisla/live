@@ -81,12 +81,11 @@
                 box-sizing: border-box;
             }
             
-            /* --- POPRAWKA: MAKSYMALNIE ZMNIEJSZONA I PRZYGASZONA STRATA PUNKTOWA --- */
+            /* --- POPRAWKA: MAŁY, ALE WYRAŹNY CZARNY TEKST STRATY --- */
             .tabela-wynikow .col-Strata {
-                font-size: 0.65em !important; /* Bardzo mała czcionka */
-                font-weight: normal !important;
-                color: var(--text-muted) !important;
-                opacity: 0.6; /* Dodatkowa przezroczystość, żeby nie raziło w oczy */
+                font-size: 0.65em !important;
+                font-weight: bold !important; /* Pogrubienie, żeby mały druk był czytelny */
+                color: #000000 !important; /* Wyraźna czerń */
                 text-align: center !important;
                 width: 30px !important;
                 min-width: 30px !important;
@@ -134,7 +133,7 @@
         <div class="naglowek-glowny">
             <div class="tytul-wrapper">
                 <h1>Sekcja Strzelecka TS WISŁA Kraków</h1>
-                <div class="odswiezanie">Aktualizacja: <span id="time-hook">10.07.2026 r. godz. 19:11:22</span> (Wyniki na żywo)</div>
+                <div class="odswiezanie">Aktualizacja: <span id="time-hook">10.07.2026 r. godz. 19:15:55</span> (Wyniki na żywo)</div>
             </div>
         </div>
         <div id="live-content" class="kontener">
